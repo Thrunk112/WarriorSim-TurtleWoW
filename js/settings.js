@@ -560,6 +560,8 @@ SIM.SETTINGS = {
             ul.append(`<li data-id="maincdactive" class="${spell.maincdactive ? 'active' : ''}">Don't ${spell.name == "Heroic Strike" ? 'queue' : 'use'} if BT / MS cooldown shorter than <input type="text" name="maincd" value="${spell.maincd}" data-numberonly="true" /> seconds</li>`);
         if (typeof spell.duration !== 'undefined') 
             ul.append(`<li data-id="durationactive" class="${spell.durationactive ? 'active' : ''}" data-group="usage">Only use every <input type="text" name="duration" value="${spell.duration}" data-numberonly="true" /> seconds</li>`);
+        if (typeof spell.earlyuse !== 'undefined') 
+            ul.append(`<li data-id="earlyuseactive" class="${spell.earlyuseactive ? 'active' : ''}" data-group="usage">Use <input type="text" name="earlyuse" value="${spell.earlyuse}" data-numberonly="true" />  seconds before the pull</li>`);
         if (typeof spell.unqueue !== 'undefined') 
             ul.append(`<li data-id="unqueueactive" class="${spell.unqueueactive ? 'active' : ''}">Unqueue if below <input type="text" name="unqueue" value="${spell.unqueue}" data-numberonly="true" /> rage before MH swing</li>`);
         if (typeof spell.exmacro !== 'undefined') 

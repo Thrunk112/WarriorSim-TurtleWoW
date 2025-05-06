@@ -268,6 +268,7 @@ var talents = [
             x: 1,
             y: 4,
             c: 0,
+            enable: 12292,
             iconname: 'Ability_Rogue_SliceDice',
             aura: function (count) { return { sweepingstrikes: count } },
          },

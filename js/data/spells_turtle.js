@@ -1651,8 +1651,22 @@ var spells = [
     aura: true,
     buff: true,
 },
-
-
+{
+    id: 12292,
+    name: 'Sweeping Strikes',
+    classname: 'SweepingStrikes',
+    iconname: 'Ability_Rogue_SliceDice',
+    minlevel: 30,
+    earlyuseactive: true,
+    earlyuse: 10,
+    priority: 9,
+    expriority: 9,
+    maxrage: 35,
+    maincd: 2,
+    maxrageactive: false,
+    active: false,
+    buff: true,
+}
 
 
 ];

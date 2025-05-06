@@ -35,6 +35,7 @@ class Spell {
         if (spell.decisive) this.decisive = spell.decisive;
         if (spell.bloodsurge) this.bloodsurge = spell.bloodsurge;
         if (spell.afterswing) this.afterswing = spell.afterswing;
+        if (spell.earlyuseactive) this.earlyuse = parseInt(spell.earlyuse);
         if (spell.swingreset) this.swingreset = spell.swingreset;
         if (spell.timetoendactive) this.timetoend = parseInt(spell.timetoend) * 1000;
         if (spell.timetostartactive) this.timetostart = parseInt(spell.timetostart) * 1000;
@@ -138,7 +139,7 @@ class Whirlwind extends Spell {
         return !this.timer && !this.player.timer && this.cost <= this.player.rage &&
         (this.player.isValidStance('zerk') || this.player.talents.rageretained >= this.cost) &&
         (!this.maxrage || this.player.isValidStance('zerk') || this.player.rage <= this.maxrage) &&
-        (!this.minrage || this.player.rage >= this.minrage) &&
+        (!this.minrage || this.player.rage >= this.minrage) && (this.player.isValidStance('zerk') || !this.player.stancetimer) &&
         (!this.maincd ||
             (this.player.spells.bloodthirst && this.player.spells.bloodthirst.timer >= this.maincd) ||
             (this.player.spells.mortalstrike && this.player.spells.mortalstrike.timer >= this.maincd));
@@ -866,7 +867,7 @@ class StanceSwitch extends Spell {
     }
     use() {
         this.maxdelay = rng(this.player.reactionmin, this.player.reactionmax);
-        this.player.switch(this.player.basestance);
+        if (!this.player.spells.sweepingstrikes.pause) this.player.switch(this.player.basestance);
     }
     canUse() {
         return !this.player.spells.unstoppablemight && !this.player.stancetimer && this.player.stance != this.player.basestance;
@@ -901,6 +902,44 @@ class GrilekFury extends Spell {
     }
 }
 
+class SweepingStrikes extends Spell {
+    constructor(player, id) {
+        super(player, id);
+        this.cost = 30 - player.ragecostbonus;
+        this.cooldown = 30;
+        this.offensive = false;
+        this.useonly = true;
+        this.pause = false;
+    }
+    use() {
+        this.pause = true;
+        if (!this.player.isValidStance('battle') && !this.player.furiousthunder) {
+            this.player.switch('battle');
+            this.maxdelay = rng(this.player.reactionmin, this.player.reactionmax);
+        }    
+        if (this.cost <= this.player.rage){
+            this.player.timer = 1500;
+            this.timer = this.cooldown * 1000;
+            this.player.rage -= this.cost;
+            this.usestep = this.starttimer + (this.cooldown * 1000);
+            this.pause = false;
+            this.player.auras.sweepingstrikes.use();
+            /* start-log */ if (this.player.logging) this.player.log(`${this.name} applied`); /* end-log */
+        }
+    }
+    canUse() {
+        return !this.timer && !this.player.timer && (this.player.isValidStance('battle') || !this.player.stancetimer) && (this.player.adjacent > 0) && this.cost <= this.player.rage && (!this.maxrage || this.player.isValidStance('battle') || this.player.rage <= this.maxrage);
+    }
+    prep(duration) {
+        if (typeof this.earlyuse !== 'undefined' && this.player.adjacent > 0){
+            this.player.auras.sweepingstrikes.use();
+            this.player.auras.sweepingstrikes.timer = (this.player.auras.sweepingstrikes.duration - this.earlyuse) * 1000;
+            this.timer = (this.cooldown - this.earlyuse) * 1000;
+        }
+        else if (typeof this.timetostart !== 'undefined') this.usestep = this.timetostart;
+        return 0;
+    }
+}
 
 /**************************************************** AURAS ****************************************************/
 
@@ -3326,4 +3365,39 @@ class ObsidianHaste extends Aura {
         this.mult_stats = { haste: 5 };
         this.name = 'Obsidian Haste';
     }
+}
+
+class SweepingStrikesAura extends Aura {
+    constructor(player, id) {
+        super(player, id);
+        this.duration = 15;
+        this.name = 'Sweeping Strikes';
+    }
+    use(a, prepull = 0) {
+        if (!this.stacks) {
+            if (this.timer) this.uptime += (step - this.starttimer);
+            this.timer = step + this.duration * 1000 - prepull;
+            this.starttimer = step;
+            this.stacks = 5;
+            /* start-log */ if (this.player.logging) this.player.log(`${this.name} applied`); /* end-log */
+        }
+    }
+    proc() {
+        this.stacks--;
+        if (!this.stacks) {
+            this.uptime += step - this.starttimer;
+            this.timer = 0;
+            /* start-log */ if (this.player.logging) this.player.log(`${this.name} removed after 5 procs`); /* end-log */
+        }
+    }
+    step() {
+        if (step >= this.timer) {
+            this.uptime += (this.timer - this.starttimer);
+            this.timer = 0;
+            this.stacks = 0;
+            this.usestep = this.starttimer + (this.cooldown * 1000);
+            /* start-log */ if (this.player.logging) this.player.log(`${this.name} removed after 15sec`); /* end-log */
+        }
+    }
+    
 }

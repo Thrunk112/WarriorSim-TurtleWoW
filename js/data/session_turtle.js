@@ -368,6 +368,14 @@ var session = {
            "buff": true,
            "time": "35"
        },
+       {
+            "id": "12292",
+            "name": "Sweeping Strikes",
+            "active": false,
+            "buff": true,
+            "earlyuseactive": true,
+            "earlyuse": 10,
+        },
    ],
    "sources": [
        "quest",

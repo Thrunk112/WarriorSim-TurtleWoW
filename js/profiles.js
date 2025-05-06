@@ -348,6 +348,8 @@ SIM.PROFILES = {
                 if (typeof spell.globalsactive !== 'undefined') obj.globalsactive = spell.globalsactive;
                 if (typeof spell.swingreset !== 'undefined') obj.swingreset = spell.swingreset;
                 if (typeof spell.afterswing !== 'undefined') obj.afterswing = spell.afterswing;
+                if (typeof spell.earlyuse !== 'undefined') obj.earlyuse = spell.earlyuse;
+                if (typeof spell.earlyuseactive !== 'undefined') obj.earlyuseactive = spell.earlyuseactive;
                 if (typeof spell.alwaystails !== 'undefined') obj.alwaystails = spell.alwaystails;
                 if (typeof spell.alwaysheads !== 'undefined') obj.alwaysheads = spell.alwaysheads;
                 if (typeof spell.zerkerpriority !== 'undefined') obj.zerkerpriority = spell.zerkerpriority;
@@ -467,6 +469,8 @@ SIM.PROFILES = {
                     if (typeof newspell.switchortime !== 'undefined') spell.switchortime = newspell.switchortime;
                     if (typeof newspell.switchorrage !== 'undefined') spell.switchorrage = newspell.switchorrage;
                     if (typeof newspell.secondarystance !== 'undefined') spell.secondarystance = newspell.secondarystance;
+                    if (typeof newspell.earlyuse !== 'undefined') spell.earlyuse = newspell.earlyuse;
+                    if (typeof newspell.earlyuseactive !== 'undefined') spell.earlyuseactive = newspell.earlyuseactive;
                 }
                 else {
                     spell.active = false;

@@ -45,6 +45,7 @@ class Player {
         this.extraattacks = 0;
         this.batchedextras = 0;
         this.nextswinghs = false;
+        this.nextswingsweep= false;
         this.nextswingcl = false;
         this.freeslam = false;
         this.ragecostbonus = 0;
@@ -177,6 +178,7 @@ class Player {
         this.spells.stanceswitch = new StanceSwitch(this);
         if (this.spells.bloodrage) this.auras.bloodrage = new BloodrageAura(this);
         if (this.spells.berserkerrage) this.auras.berserkerrage = new BerserkerRageAura(this);
+        if (this.spells.sweepingstrikes) this.auras.sweepingstrikes = new SweepingStrikesAura(this);
 
         // needs rework into the addSpells() function
         if (this.items.includes(61243)) this.auras.potentvenoms = new PotentVenoms(this);
@@ -764,6 +766,7 @@ class Player {
         this.extraattacks = 0;
         this.batchedextras = 0;
         this.nextswinghs = false;
+        this.nextswingsweep = false;
         this.nextswingcl = false;
         this.freeslam = false;
         for (let s in this.spells) {
@@ -1278,6 +1281,7 @@ class Player {
         if (this.auras.consumedrage && this.auras.consumedrage.timer) this.auras.consumedrage.step();
         if (this.auras.weaponbleedmh && this.auras.weaponbleedmh.timer) this.auras.weaponbleedmh.step();
         if (this.auras.weaponbleedoh && this.auras.weaponbleedoh.timer) this.auras.weaponbleedoh.step();
+        if (this.auras.sweepingstrikes && this.auras.sweepingstrikes.timer) this.auras.sweepingstrikes.step();
 
         if (!nobleeds && this.adjacent) {
             if (this.auras.deepwounds2 && this.auras.deepwounds2.timer) this.auras.deepwounds2.step();
@@ -1361,6 +1365,7 @@ class Player {
         if (this.auras.consumedrage && this.auras.consumedrage.timer) this.auras.consumedrage.end();
         if (this.auras.weaponbleedmh && this.auras.weaponbleedmh.timer) this.auras.weaponbleedmh.end();
         if (this.auras.weaponbleedoh && this.auras.weaponbleedoh.timer) this.auras.weaponbleedoh.end();
+        if (this.auras.sweepingstrikes && this.auras.sweepingstrikes.timer) this.auras.sweepingstrikes.end();
 
 
     }
@@ -1383,7 +1388,7 @@ class Player {
         tmp += weapon.glanceChance * 100;
         if (roll < tmp) return RESULT.GLANCE;
         tmp += (this.crit + weapon.crit) * 100;
-        if (roll < tmp) return RESULT.CRIT;
+        if (roll < tmp && !this.nextswingsweep) return RESULT.CRIT;
         return RESULT.HIT;
     }
     rollmeleespell(spell, weapon) {
@@ -1401,6 +1406,7 @@ class Player {
             tmp = 0;
         }
         let crit = this.crit + weapon.crit;
+        if (this.nextswingsweep && this.mode == 'turtle') crit = 0;
         if (spell instanceof Overpower)
             crit += this.talents.overpowercrit;
         tmp += crit * 100;
@@ -1423,6 +1429,7 @@ class Player {
 
         let spell = null;
         let procdmg = 0;
+        let sweepdmg = 0;
         let result;
 
         if (this.nextswinghs) {
@@ -1466,13 +1473,15 @@ class Player {
 
         weapon.use();
         let done = this.dealdamage(dmg, result, weapon, spell, adjacent);
-        if (spell) {
-            spell.totaldmg += done;
-            if (!adjacent) spell.data[result]++;
-        }
-        else {
-            weapon.totaldmg += done;
-            weapon.data[result]++;
+        if (!this.nextswingsweep){
+            if (spell) {
+                spell.totaldmg += done;
+                if (!adjacent) spell.data[result]++;
+            }
+            else {
+                weapon.totaldmg += done;
+                weapon.data[result]++;
+            }
         }
         weapon.totalprocdmg += procdmg;
         /* start-log */ if (this.logging) this.log(`${spell ? spell.name + ' for' : 'Main hand attack for'} ${~~done} (${Object.keys(RESULT)[result]})${adjacent ? ' (Adjacent)' : ''}`); /* end-log */
@@ -1480,8 +1489,52 @@ class Player {
         if (spell instanceof Cleave && !adjacent) {
             this.nextswinghs = true;
             done += this.attackmh(weapon, 1, done);
+            if (!adjacent && this.auras.sweepingstrikes && this.auras.sweepingstrikes.stacks >=2) {
+                this.nextswinghs = true;
+                this.nextswingsweep = true;
+                spell = this.spells.cleave;
+                this.rage += spell.cost
+                sweepdmg += this.attackmh(weapon, 1, done);
+                this.nextswingsweep = false;
+                this.auras.sweepingstrikes.proc();
+                /* start-log */ if (this.logging) this.log(`Sweeping Strikes proc used on cleave (adjacent target)`); /* end-log */
+                this.nextswinghs = true;
+                this.nextswingsweep = true;
+                this.rage += spell.cost
+                sweepdmg += this.attackmh(weapon, 1, done);
+                this.nextswingsweep = false;
+                this.spells.sweepingstrikes.totaldmg += sweepdmg;
+                this.spells.sweepingstrikes.data[result]++;
+                this.auras.sweepingstrikes.proc();
+                /* start-log */ if (this.logging) this.log(`Sweeping Strikes proc used on cleave (main target)`); /* end-log */
+            }
+            else if (!adjacent && this.auras.sweepingstrikes && this.auras.sweepingstrikes.stacks == 1) {
+                this.nextswinghs = true;
+                spell = this.spells.cleave;
+                this.rage += spell.cost
+                sweepdmg += this.attackmh(weapon, 1, done);
+                this.nextswingsweep = false;
+                this.auras.sweepingstrikes.proc();
+                this.spells.sweepingstrikes.totaldmg += sweepdmg;
+                this.spells.sweepingstrikes.data[result]++;
+                /* start-log */ if (this.logging) this.log(`Sweeping Strikes proc used on cleave`); /* end-log */
+            }
         }
-        return done + procdmg;
+        if (!adjacent && this.auras.sweepingstrikes && this.auras.sweepingstrikes.stacks && (!spell || spell instanceof HeroicStrike)) {
+            if (spell instanceof HeroicStrike){
+                this.nextswinghs = true;
+                spell = this.spells.heroicstrike;
+                this.rage += spell.cost;
+            }
+            this.nextswingsweep = true;
+            sweepdmg += this.attackmh(weapon, 1, done);
+            this.nextswingsweep = false;
+            this.spells.sweepingstrikes.totaldmg += sweepdmg;
+            this.spells.sweepingstrikes.data[result]++;
+            this.auras.sweepingstrikes.proc();
+            /* start-log */ if (this.logging) this.log(`Sweeping Strikes proc used on Mainhand`); /* end-log */
+        }
+        return done + procdmg + sweepdmg;
     }
     attackoh(weapon) {
         this.stepauras();
@@ -1514,6 +1567,7 @@ class Player {
         return done + procdmg;
     }
     cast(spell, delayedheroic, adjacent, damageSoFar) {
+        let sweepdmg = 0;
         if (!adjacent) {
             this.stepauras();
             spell.use(delayedheroic);
@@ -1558,10 +1612,21 @@ class Player {
         }
 
         let done = this.dealdamage(dmg, result, this.mh, spell, adjacent);
-        if (!adjacent) spell.data[result]++;
-        spell.totaldmg += done;
+        if (!this.nextswingsweep){
+            if (!adjacent) spell.data[result]++;
+            spell.totaldmg += done;
+        }
         this.mh.totalprocdmg += procdmg;
         /* start-log */ if (this.logging) this.log(`${spell.name} for ${~~done} (${Object.keys(RESULT)[result]})${adjacent ? ' (Adjacent)' : ''}.`); /* end-log */
+        if (!adjacent && this.auras.sweepingstrikes && this.auras.sweepingstrikes.stacks && (!(spell instanceof SunderArmor))) {
+            this.nextswingsweep = true;
+            sweepdmg += this.cast(spell, delayedheroic, 1, damageSoFar);
+            this.nextswingsweep = false;
+            this.spells.sweepingstrikes.totaldmg += sweepdmg;
+            this.spells.sweepingstrikes.data[result]++;
+            this.auras.sweepingstrikes.proc();
+            /* start-log */ if (this.logging) this.log(`Sweeping Strikes proc used on ${spell.name}`); /* end-log */
+        }
         return done + procdmg;
     }
     castoh(spell, adjacent, damageSoFar) {

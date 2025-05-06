@@ -385,7 +385,7 @@ class Simulation {
 
                     // Use GCD spells
                     else if (player.spells.unstoppablemight && player.spells.unstoppablemight.canUse()) { player.spelldelay = 1; delayedspell = player.spells.unstoppablemight; }
-                    else if (player.spells.stanceswitch.canUse()) { player.spelldelay = 1; delayedspell = player.spells.stanceswitch; }
+                    else if ((player.spells.sweepingstrikes && !player.spells.sweepingstrikes.pause) &&player.spells.stanceswitch.canUse()) { player.spelldelay = 1; delayedspell = player.spells.stanceswitch; }
                     else if (player.timer) { }
                     else if (player.spells.victoryrush && player.spells.victoryrush.canUse()) { player.spelldelay = 1; delayedspell = player.spells.victoryrush; }
                     else if (player.auras.flask && player.auras.flask.canUse()) { player.spelldelay = 1; delayedspell = player.auras.flask; }
@@ -396,8 +396,10 @@ class Simulation {
                     else if (player.spells.berserkerrage && player.spells.berserkerrage.canUse()) { player.spelldelay = 1; delayedspell = player.spells.berserkerrage; }
                     else if (player.auras.battleshout && player.auras.battleshout.canUse()) { player.spelldelay = 1; delayedspell = player.auras.battleshout; }
                     else if (player.spells.blademasterfury && player.spells.blademasterfury.canUse()) { player.spelldelay = 1; delayedspell = player.spells.blademasterfury; }
+                    else if (player.spells.sweepingstrikes && player.spells.sweepingstrikes.canUse()) { player.spelldelay = 1; delayedspell = player.spells.sweepingstrikes; }
 
-                    // prevent using spells while waiting for consumed by rage proc
+                    // prevent using spells while waiting for consumed by rage 
+                    else if (player.spells.sweepingstrikes && player.spells.sweepingstrikes.pause) {}
                     else if (player.auras.consumedrage && player.auras.consumedrage.procblock && !player.auras.consumedrage.timer && player.rage < 60) { }
                     else if (player.auras.consumedrage && player.auras.consumedrage.rageblock && player.rage < player.auras.consumedrage.rageblock) { }
                     else if (player.auras.consumedrage && player.auras.consumedrage.chargeblock && player.auras.consumedrage.stacks < player.auras.consumedrage.chargeblock && player.rage < 60) { }
@@ -425,6 +427,7 @@ class Simulation {
                     if (!player.spells.execute || (step < this.executestep && (!player.auras.suddendeath || !player.auras.suddendeath.timer))) {
                         // prevent using spells while waiting for consumed by rage proc
                         if (player.auras.consumedrage && player.auras.consumedrage.procblock && !player.auras.consumedrage.timer && player.rage < 60) { }
+                        else if (player.auras.sweepingstrikes && player.auras.sweepingstrikes.stacks && player.rage < 30) { }
                         else if (player.auras.consumedrage && player.auras.consumedrage.rageblock && player.rage < player.auras.consumedrage.rageblock) { }
                         else if (player.auras.consumedrage && player.auras.consumedrage.chargeblock && player.auras.consumedrage.stacks < player.auras.consumedrage.chargeblock && player.rage < 60) { }
 
@@ -454,12 +457,14 @@ class Simulation {
                             player.timer = 1500;
                             player.heroicdelay = 0;
                             player.nextswinghs = false;
+                            player.nextswingsweep = false;
                             next = 0;
                             /* start-log */ if (player.logging) this.player.log(`Casting Slam`); /* end-log */
                             continue;
                         }
 
                         let done = player.cast(delayedspell, delayedheroic)
+                        let sweepdmg = 0;
                         this.idmg += done;
                         player.spelldelay = 0;
                         spellcheck = true;
@@ -473,11 +478,22 @@ class Simulation {
                             for (let i = 0; i < player.adjacent; i++) {
                                 done = player.cast(delayedspell, delayedheroic, player.adjacent, done);
                                 this.idmg += done;
+                                if (player.auras.sweepingstrikes && player.auras.sweepingstrikes.stacks) {
+                                    player.nextswingsweep = true;
+                                    sweepdmg += player.cast(delayedspell, delayedheroic, player.adjacent, done);
+                                    player.nextswingsweep = false;
+                                    player.auras.sweepingstrikes.proc();
+                                    /* start-log */ if (player.logging) this.player.log(`Sweeping Strikes Whirlwind proc`); /* end-log */
+                                }
                                 if (delayedspell.offhandhit && player.oh) {
                                     done = player.castoh(delayedspell, player.adjacent, done);
                                     this.idmg += done;
                                 }
                             }
+                        }
+                        if (player.auras.sweepingstrikes && player.auras.sweepingstrikes.stacks) {
+                        player.spells.sweepingstrikes.idmg += sweepdmg;
+                        player.spells.sweepingstrikes.totaldmg += sweepdmg;
                         }
                     }
                     else {
@@ -500,12 +516,12 @@ class Simulation {
                 // Unqueue HS
                 if (!player.spells.execute || (step < this.executestep && (!player.auras.suddendeath || !player.auras.suddendeath.timer))) {
                     if (player.spells.heroicstrike && player.spells.heroicstrike.unqueue && player.nextswinghs &&
-                        player.rage < player.spells.heroicstrike.unqueue && player.mh.timer <= player.spells.heroicstrike.unqueuetimer) {
+                        (player.rage < player.spells.heroicstrike.unqueue || player.spells.sweepingstrikes && player.spells.sweepingstrikes.pause) && player.mh.timer <= player.spells.heroicstrike.unqueuetimer) {
                         this.player.nextswinghs = false;
                         /* start-log */ if (player.logging) this.player.log(`Heroic Strike unqueued`); /* end-log */
                     }
                     else if (player.spells.cleave && player.spells.cleave.unqueue && player.nextswinghs &&
-                        player.rage < player.spells.cleave.unqueue && player.mh.timer <= player.spells.cleave.unqueuetimer) {
+                        (player.rage < player.spells.cleave.unqueue || player.spells.sweepingstrikes && player.spells.sweepingstrikes.pause) && player.mh.timer <= player.spells.cleave.unqueuetimer) {
                         this.player.nextswinghs = false;
                         /* start-log */ if (player.logging) this.player.log(`Cleave unqueued`); /* end-log */
                     }
@@ -596,6 +612,8 @@ class Simulation {
             if (player.spells.overpower && player.spells.overpower.timer && player.spells.overpower.timer < next) next = player.spells.overpower.timer;
             if (player.spells.execute && player.spells.execute.timer && player.spells.execute.timer < next) next = player.spells.execute.timer;
             if (player.spells.slam && player.spells.slam.timer && player.spells.slam.timer < next) next = player.spells.slam.timer;
+            if (player.spells.sweepingstrikes && player.spells.sweepingstrikes.timer && player.spells.sweepingstrikes.timer < next) next = player.spells.sweepingstrikes.timer;
+
 
             if (player.auras.zerkforecast && player.auras.zerkforecast.timer && (player.auras.zerkforecast.timer - step) < next) next = player.auras.zerkforecast.timer - step;
             if (player.auras.battleforecast && player.auras.battleforecast.timer && (player.auras.battleforecast.timer - step) < next) next = player.auras.battleforecast.timer - step;
@@ -653,6 +671,8 @@ class Simulation {
             if (player.spells.thunderclap && player.spells.thunderclap.timer && !player.spells.thunderclap.step(next) && !player.spelldelay) spellcheck = true;
             if (player.spells.sunderarmor && player.spells.sunderarmor.timer && !player.spells.sunderarmor.step(next) && !player.spelldelay) spellcheck = true;
             if (player.spells.slam && player.spells.slam.timer && !player.spells.slam.step(next) && !player.spelldelay) spellcheck = true;
+            if (player.spells.sweepingstrikes && player.spells.sweepingstrikes.timer && !player.spells.sweepingstrikes.step(next) && !player.spelldelay) spellcheck = true;
+
 
             // Auras with periodic ticks
             if (player.auras.bloodrage && player.auras.bloodrage.timer && !player.auras.bloodrage.step() && !player.spelldelay) spellcheck = true;
