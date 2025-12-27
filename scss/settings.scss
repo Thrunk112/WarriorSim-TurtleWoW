@@ -346,6 +346,11 @@
                 &:before, &:after {
                     display: none;
                 }
+                &.available {
+                    img {
+                        filter: grayscale(0%);
+                    }
+                }
             }
             &.maxed {
                 &:before {

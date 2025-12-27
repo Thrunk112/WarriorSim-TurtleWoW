@@ -23,28 +23,28 @@ var talents = [
             aura: function (count) { return { impheroicstrike: count } },
          },
          {
-            i: 130,
-            n: 'Deflection',
+            i: 641,
+            n: 'Tactical Mastery',
             m: 5,
             s: [
-               16462,
-               16463,
-               16464,
-               16465,
-               16466
+               12295,
+               12676,
+               12677,
+               12678,
+               12679
             ],
             d: [
-               'Increases your Parry chance by 1%.',
-               'Increases your Parry chance by 2%.',
-               'Increases your Parry chance by 3%.',
-               'Increases your Parry chance by 4%.',
-               'Increases your Parry chance by 5%.'
+               'You retain up to 5 of your rage points when you change stances.',
+               'You retain up to 10 of your rage points when you change stances.',
+               'You retain up to 15 of your rage points when you change stances.',
+               'You retain up to 20 of your rage points when you change stances.',
+               'You retain up to 25 of your rage points when you change stances.'
             ],
             x: 1,
-            y: 1,
+            y: 0,
             c: 0,
-            iconname: 'Ability_Parry',
-            aura: function (count) { return { parry: count } },
+            iconname: 'Spell_Nature_EnchantArmor',
+            aura: function (count) { return { rageretained: count * 5 } },
          },
          {
             i: 127,
@@ -83,28 +83,28 @@ var talents = [
             aura: function (count) { return { chargebonus: count * 3 } },
          },
          {
-            i: 641,
-            n: 'Tactical Mastery',
+            i: 130,
+            n: 'Deflection',
             m: 5,
             s: [
-               12295,
-               12676,
-               12677,
-               12678,
-               12679
+               16462,
+               16463,
+               16464,
+               16465,
+               16466
             ],
             d: [
-               'You retain up to 5 of your rage points when you change stances.',
-               'You retain up to 10 of your rage points when you change stances.',
-               'You retain up to 15 of your rage points when you change stances.',
-               'You retain up to 20 of your rage points when you change stances.',
-               'You retain up to 25 of your rage points when you change stances.'
+               'Increases your Parry chance by 1%.',
+               'Increases your Parry chance by 2%.',
+               'Increases your Parry chance by 3%.',
+               'Increases your Parry chance by 4%.',
+               'Increases your Parry chance by 5%.'
             ],
             x: 1,
-            y: 0,
+            y: 1,
             c: 0,
-            iconname: 'Spell_Nature_EnchantArmor',
-            aura: function (count) { return { rageretained: count * 5 } },
+            iconname: 'Ability_Parry',
+            aura: function (count) { return { parry: count } },
          },
          {
             i: 128,
@@ -127,6 +127,23 @@ var talents = [
             aura: function (count) { return { impthunderclap: Math.pow(2, count - 1) } },
          },
          {
+            i: 137,
+            n: 'Master Strike',
+            m: 1,
+            s: [
+               54023
+            ],
+            d: [
+               '35% weapon damage plus special based on weapon type'
+            ],
+            x: 0,
+            y: 2,
+            c: 0,
+            enable: 54023,
+            iconname: "Inv_sword_1h_pvpdraenors2_d_02",
+            aura: function (count) { return { masterstrike: count } },
+         },
+         {
             i: 131,
             n: 'Improved Overpower',
             m: 2,
@@ -143,27 +160,6 @@ var talents = [
             c: 0,
             iconname: 'INV_Sword_05',
             aura: function (count) { return { overpowercrit: 25 * count } },
-         },
-         {
-            i: 137,
-            n: 'Master Strike',
-            m: 1,
-            s: [
-               54023
-            ],
-            d: [
-               '35% weapon damage plus special based on weapon type'
-            ],
-            x: 0,
-            y: 2,
-            r: [
-               4,
-               5
-            ],
-            c: 0,
-            enable: 54023,
-            iconname: "Inv_sword_1h_pvpdraenors2_d_02",
-            aura: function (count) { return { masterstrike: count } },
          },
          {
             i: 121,
@@ -183,7 +179,7 @@ var talents = [
             y: 2,
             r: [
                2,
-               3
+               2
             ],
             c: 0,
             // enable: 23255,
@@ -250,6 +246,10 @@ var talents = [
                'Increases your chance to get a critical strike with Axes and Polearms by 4%.',
                'Increases your chance to get a critical strike with Axes and Polearms by 5%.'
             ],
+            r: [
+               6,
+               1
+            ],
             x: 0,
             y: 4,
             c: 0,
@@ -297,6 +297,26 @@ var talents = [
             aura: function (count) { return { preccut: count * 15 } },
          },
          {
+            i: 134,
+            n: 'Improved Disciplines',
+            m: 3,
+            s: [
+               45576,
+               45577,
+               45578
+            ],
+            d: [
+               'Reduces the cooldown of your Retaliation, Recklessness and Shield Wall abilities by 4 min.',
+               'Reduces the cooldown of your Retaliation, Recklessness and Shield Wall abilities by 8 min.',
+               'Reduces the cooldown of your Retaliation, Recklessness and Shield Wall abilities by 12 min.'
+            ],
+            x: 3,
+            y: 4,
+            c: 0,
+            iconname: 'Ability_Warrior_Improveddisciplines',
+            aura: function (count) { return { impdisc: count } },
+         },
+         {
             i: 168,
             n: 'Improved Slam',
             m: 2,
@@ -319,26 +339,6 @@ var talents = [
             c: 0,
             iconname: 'Ability_Warrior_DecisiveStrike',
             aura: function (count) { return { impslam: count * 2.5 } }, // cc2 talent is 2.5x better than 1.12 version
-         },
-         {
-            i: 134,
-            n: 'Improved Disciplines',
-            m: 3,
-            s: [
-               45576,
-               45577,
-               45578
-            ],
-            d: [
-               'Reduces the cooldown of your Retaliation, Recklessness and Shield Wall abilities by 4 min.',
-               'Reduces the cooldown of your Retaliation, Recklessness and Shield Wall abilities by 8 min.',
-               'Reduces the cooldown of your Retaliation, Recklessness and Shield Wall abilities by 12 min.'
-            ],
-            x: 3,
-            y: 4,
-            c: 0,
-            iconname: 'Ability_Warrior_Improveddisciplines',
-            aura: function (count) { return { impdisc: count } },
          },
          {
             i: 129,
@@ -398,11 +398,11 @@ var talents = [
                12838
             ],
             d: [
-               'Increases the area of effect and duration of your Battle Shout and Demoralizing Shout by 10%.',
-               'Increases the area of effect and duration of your Battle Shout and Demoralizing Shout by 20%.',
-               'Increases the area of effect and duration of your Battle Shout and Demoralizing Shout by 30%.',
-               'Increases the area of effect and duration of your Battle Shout and Demoralizing Shout by 40%.',
-               'Increases the area of effect and duration of your Battle Shout and Demoralizing Shout by 50%.'
+               'Increases the area of effect and duration of your Battle Shout and Demoralizing Shout by 12%.',
+               'Increases the area of effect and duration of your Battle Shout and Demoralizing Shout by 24%.',
+               'Increases the area of effect and duration of your Battle Shout and Demoralizing Shout by 36%.',
+               'Increases the area of effect and duration of your Battle Shout and Demoralizing Shout by 48%.',
+               'Increases the area of effect and duration of your Battle Shout and Demoralizing Shout by 60%.'
             ],
             x: 1,
             y: 0,
@@ -435,28 +435,28 @@ var talents = [
             aura: function (count) { return { crit: count } }
          },
          {
-            i: 161,
-            n: 'Improved Demoralizing Shout',
+            i: 1581,
+            n: 'Dual Wield Specialization',
             m: 5,
             s: [
-               12324,
-               12876,
-               12877,
-               12878,
-               12879
+               23584,
+               23585,
+               23586,
+               23587,
+               23588
             ],
             d: [
-               'Increases the melee attack power reduction of your Demoralizing Shout by 8%.',
-               'Increases the melee attack power reduction of your Demoralizing Shout by 16%.',
-               'Increases the melee attack power reduction of your Demoralizing Shout by 24%.',
-               'Increases the melee attack power reduction of your Demoralizing Shout by 32%.',
-               'Increases the melee attack power reduction of your Demoralizing Shout by 40%.'
+               'Increases the damage done by your offhand weapon by 5% and your chance to hit with your offhand weapon by 2%.',
+               'Increases the damage done by your offhand weapon by 10% and your chance to hit with your offhand weapon by 4%.',
+               'Increases the damage done by your offhand weapon by 15% and your chance to hit with your offhand weapon by 6%.',
+               'Increases the damage done by your offhand weapon by 20% and your chance to hit with your offhand weapon by 8%.',
+               'Increases the damage done by your offhand weapon by 25% and your chance to hit with your offhand weapon by 10%.'
             ],
-            x: 5, // disabled
+            x: 1,
             y: 1,
             c: 0,
-            iconname: 'Ability_Warrior_WarCry',
-            aura: function (count) { return { impdemoshout: count * 8 } },
+            iconname: 'Ability_DualWield',
+            aura: function (count) { return { offmod: count * 0.05, offhit: count * 2 } },
          },
          {
             i: 159,
@@ -470,11 +470,11 @@ var talents = [
                13002
             ],
             d: [
-               'Gives you a 8% chance to generate an additional Rage point when you deal melee damage with a weapon.',
-               'Gives you a 16% chance to generate an additional Rage point when you deal melee damage with a weapon.',
-               'Gives you a 24% chance to generate an additional Rage point when you deal melee damage with a weapon.',
-               'Gives you a 32% chance to generate an additional Rage point when you deal melee damage with a weapon.',
-               'Gives you a 40% chance to generate an additional Rage point when you deal melee damage with a weapon.'
+               'Gives you a 15% chance to generate an additional Rage point when you deal melee damage with a weapon.',
+               'Gives you a 30% chance to generate an additional Rage point when you deal melee damage with a weapon.',
+               'Gives you a 45% chance to generate an additional Rage point when you deal melee damage with a weapon.',
+               'Gives you a 60% chance to generate an additional Rage point when you deal melee damage with a weapon.',
+               'Gives you a 75% chance to generate an additional Rage point when you deal melee damage with a weapon.'
             ],
             x: 2,
             y: 1,
@@ -483,24 +483,28 @@ var talents = [
             aura: function (count) { return { umbridledwrath: count * 15 } },
          },
          {
-            i: 166,
-            n: 'Improved Pummel',
-            m: 3,
+            i: 154,
+            n: 'Improved Shouts',
+            m: 5,
             s: [
-               12329,
-               12950,
-               20496
+               12318,
+               12857,
+               12858,
+               12860,
+               12861
             ],
             d: [
-               'Increases the bonus damage done by your Cleave ability by 40%.',
-               'Increases the bonus damage done by your Cleave ability by 80%.',
-               'Increases the bonus damage done by your Cleave ability by 120%.'
+               'Increases the melee attack power bonus of your Battle Shout by 5%.',
+               'Increases the melee attack power bonus of your Battle Shout by 10%.',
+               'Increases the melee attack power bonus of your Battle Shout by 15%.',
+               'Increases the melee attack power bonus of your Battle Shout by 20%.',
+               'Increases the melee attack power bonus of your Battle Shout by 25%.'
             ],
-            x: 3,
-            y: 3,
+            x: 0,
+            y: 2,
             c: 0,
-            iconname: 'inv_gauntlets_04',
-            aura: function (count) { return { imppummel: count } },
+            iconname: 'ability_warrior_commandingshout',
+            aura: function (count) { return { impbattleshout: count * 0.05, impdemoshout: count } },
          },
          {
             i: 160,
@@ -539,70 +543,22 @@ var talents = [
             aura: function (count) { return { bloodcraze: count * 2 } }, // 2x more in cc2
          },
          {
-            i: 154,
-            n: 'Improved Shouts',
-            m: 5,
-            s: [
-               12318,
-               12857,
-               12858,
-               12860,
-               12861
-            ],
-            d: [
-               'Increases the melee attack power bonus of your Battle Shout by 5%.',
-               'Increases the melee attack power bonus of your Battle Shout by 10%.',
-               'Increases the melee attack power bonus of your Battle Shout by 15%.',
-               'Increases the melee attack power bonus of your Battle Shout by 20%.',
-               'Increases the melee attack power bonus of your Battle Shout by 25%.'
-            ],
-            x: 0,
-            y: 2,
-            c: 0,
-            iconname: 'ability_warrior_commandingshout',
-            aura: function (count) { return { impbattleshout: count * 0.05, impdemoshout: count } },
-         },
-         {
-            i: 1581,
-            n: 'Dual Wield Specialization',
-            m: 5,
-            s: [
-               23584,
-               23585,
-               23586,
-               23587,
-               23588
-            ],
-            d: [
-               'Increases the damage done by your offhand weapon by 5% and your chance to hit with your offhand weapon by 2%.',
-               'Increases the damage done by your offhand weapon by 10% and your chance to hit with your offhand weapon by 4%.',
-               'Increases the damage done by your offhand weapon by 15% and your chance to hit with your offhand weapon by 6%.',
-               'Increases the damage done by your offhand weapon by 20% and your chance to hit with your offhand weapon by 8%.',
-               'Increases the damage done by your offhand weapon by 25% and your chance to hit with your offhand weapon by 10%.'
-            ],
-            x: 1,
-            y: 1,
-            c: 0,
-            iconname: 'Ability_DualWield',
-            aura: function (count) { return { offmod: count * 0.05, offhit: count * 2 } },
-         },
-         {
-            i: 1542,
-            n: 'Improved Execute',
+            i: 1543,
+            n: 'Battlefield Mobility',
             m: 2,
             s: [
-               20502,
-               20503
+               20504,
+               20505
             ],
             d: [
-               'Reduces the Rage cost of your Execute ability by 2.',
-               'Reduces the Rage cost of your Execute ability by 5.'
+               'Reduces the cooldown of your Intercept and Intervene abilities by 5 sec, and your Charge by 2 sec.',
+               'Reduces the cooldown of your Intercept and Intervene abilities by 10 sec, and your Charge by 4 sec.'
             ],
-            x: 3,
-            y: 4,
+            x: 1,
+            y: 3,
             c: 0,
-            iconname: 'INV_Sword_48',
-            aura: function (count) { return { executecost: count == 2 ? 5 : count * 2 } },
+            iconname: 'Ability_Rogue_Sprint',
+            aura: function (count) { return { impintercept: count * 5 } },
          },
          {
             i: 155,
@@ -627,6 +583,26 @@ var talents = [
             c: 0,
             iconname: 'Spell_Shadow_UnholyFrenzy',
             aura: function (count) { return { enrage: count * 4 } },
+         },
+         {
+            i: 166,
+            n: 'Improved Pummel',
+            m: 3,
+            s: [
+               12329,
+               12950,
+               20496
+            ],
+            d: [
+               'Increases the bonus damage done by your Cleave ability by 40%.',
+               'Increases the bonus damage done by your Cleave ability by 80%.',
+               'Increases the bonus damage done by your Cleave ability by 120%.'
+            ],
+            x: 3,
+            y: 3,
+            c: 0,
+            iconname: 'inv_gauntlets_04',
+            aura: function (count) { return { imppummel: count } },
          },
          {
             i: 168,
@@ -666,41 +642,40 @@ var talents = [
             aura: function (count) { return { deathwish: count } },
          },
          {
-            i: 1543,
-            n: 'Improved Intercept',
+            i: 1542,
+            n: 'Improved Execute',
             m: 2,
             s: [
-               20504,
-               20505
+               20502,
+               20503
             ],
             d: [
-               'Reduces the cooldown of your Intercept ability by 5 sec.',
-               'Reduces the cooldown of your Intercept ability by 10 sec.'
+               'Reduces the Rage cost of your Execute ability by 2.',
+               'Reduces the Rage cost of your Execute ability by 5.'
             ],
-            x: 1,
-            y: 3,
+            x: 3,
+            y: 4,
             c: 0,
-            iconname: 'Ability_Rogue_Sprint',
-            aura: function (count) { return { impintercept: count * 5 } },
+            iconname: 'INV_Sword_48',
+            aura: function (count) { return { executecost: count == 2 ? 5 : count * 2 } },
          },
          {
-            i: 1542,
-            n: 'Blooddrinker',
-            m: 3,
+            i: 1541,
+            n: 'Improved Berserker Rage',
+            m: 2,
             s: [
-               21506, //fix ID when db is updated
-               21507,
-               21508,
+               20500,
+               20501
             ],
             d: [
-               'The Berserker Rage ability will generate 5 rage when used.',
-               'The Berserker Rage ability will generate 10 rage when used.'
+               'Berserker rage will generate 5 rage and 50% chance to break movement impairing effects',
+               'Berserker rage will generate 10 rage and 50% chance to break movement impairing effects'
             ],
-            x: 2,
+            x: 0,
             y: 5,
             c: 0,
-            iconname: 'racial_troll_berserk',
-            aura: function (count) { return { Blooddrinker: count } },
+            iconname: 'spell_nature_ancestralguardian',
+            aura: function (count) { return { berserkerbonus: count * 5 } },
          },
          {
             i: 156,
@@ -723,30 +698,35 @@ var talents = [
             x: 1,
             y: 5,
             r: [
-               10,
-               5
+               11,
+               1
             ],
             c: 0,
             iconname: 'Ability_GhoulFrenzy',
             aura: function (count) { return { flurry: count == 0 ? 0 : 5 + count * 5 } },
          },
          {
-            i: 1541,
-            n: 'Improved Berserker Rage',
-            m: 2,
+            i: 1542,
+            n: 'Blooddrinker',
+            m: 3,
             s: [
-               20500,
-               20501
+               21506, //fix ID when db is updated
+               21507,
+               21508,
             ],
             d: [
-               'Berserker rage will generate 5 rage and 50% chance to break movement impairing effects',
-               'Berserker rage will generate 10 rage and 50% chance to break movement impairing effects'
+               'The Berserker Rage ability will generate 5 rage when used.',
+               'The Berserker Rage ability will generate 10 rage when used.'
             ],
-            x: 0,
+            r: [
+               8,
+               5
+            ],
+            x: 2,
             y: 5,
             c: 0,
-            iconname: 'spell_nature_ancestralguardian',
-            aura: function (count) { return { berserkerbonus: count * 5 } },
+            iconname: 'racial_troll_berserk',
+            aura: function (count) { return { Blooddrinker: count } },
          },
          {
             i: 167,
@@ -760,10 +740,6 @@ var talents = [
             ],
             x: 1,
             y: 6,
-            r: [
-               12,
-               1
-            ],
             c: 0,
             iconname: 'Spell_Nature_BloodLust',
             enable: 23894,
@@ -774,54 +750,6 @@ var talents = [
    {
       n: 'Protection',
       t: [
-         {
-            i: 1601,
-            n: 'Shield Specialization',
-            m: 5,
-            s: [
-               12298,
-               12724,
-               12725,
-               12726,
-               12727
-            ],
-            d: [
-               'Increases your chance to block attacks with a shield by 1% and has a 20% chance to generate 1 rage when a block occurs.',
-               'Increases your chance to block attacks with a shield by 2% and has a 40% chance to generate 1 rage when a block occurs.',
-               'Increases your chance to block attacks with a shield by 3% and has a 60% chance to generate 1 rage when a block occurs.',
-               'Increases your chance to block attacks with a shield by 4% and has a 80% chance to generate 1 rage when a block occurs.',
-               'Increases your chance to block attacks with a shield by 5% and has a 100% chance to generate 1 rage when a block occurs.'
-            ],
-            x: 1,
-            y: 0,
-            c: 0,
-            iconname: 'INV_Shield_06',
-            aura: function (count) { return { block: count, blockragechance: count * 20 } },
-         },
-         {
-            i: 138,
-            n: 'Anticipation',
-            m: 5,
-            s: [
-               12297,
-               12750,
-               12751,
-               12752,
-               12753
-            ],
-            d: [
-               'Increases your Defense skill by 2.',
-               'Increases your Defense skill by 4.',
-               'Increases your Defense skill by 6.',
-               'Increases your Defense skill by 8.',
-               'Increases your Defense skill by 10.'
-            ],
-            x: 2,
-            y: 0,
-            c: 0,
-            iconname: 'Spell_Nature_MirrorImage',
-            aura: function (count) { return { defense: count * 2 } },
-         },
          {
             i: 142,
             n: 'Improved Bloodrage',
@@ -838,31 +766,53 @@ var talents = [
             y: 0,
             c: 0,
             iconname: 'Ability_Racial_BloodRage',
-            aura: function (count) { return { bloodragebonus: count == 2 ? 5 : count * 2 } },
+            aura: function (count) { return { bloodragebonus: count == 1 ? 2 : 5 } },
          },
          {
-            i: 140,
-            n: 'Toughness',
+            i: 1601,
+            n: 'Shield Specialization',
             m: 5,
             s: [
-               12299,
-               12761,
-               12762,
-               12763,
-               12764
+               12298,
+               12724,
+               12725,
+               12726,
+               12727
             ],
             d: [
-               'Increases your armor value from items by 2%.',
-               'Increases your armor value from items by 4%.',
-               'Increases your armor value from items by 6%.',
-               'Increases your armor value from items by 8%.',
-               'Increases your armor value from items by 10%.'
+               'Increases your chance to block attacks with a shield by 1% and has a 20% chance to generate 1 rage when a block occurs.',
+               'Increases your chance to block attacks with a shield by 2% and has a 40% chance to generate 2 rage when a block occurs.',
+               'Increases your chance to block attacks with a shield by 3% and has a 60% chance to generate 3 rage when a block occurs.',
+               'Increases your chance to block attacks with a shield by 4% and has a 80% chance to generate 4 rage when a block occurs.',
+               'Increases your chance to block attacks with a shield by 5% and has a 100% chance to generate 5 rage when a block occurs.'
+            ],
+            x: 1,
+            y: 0,
+            c: 0,
+            iconname: 'INV_Shield_06',
+            aura: function (count) { return { block: count, blockragechance: count } },
+         },
+         {
+            i: 138,
+            n: 'Anticipation',
+            m: 3,
+            s: [
+               12297,
+               12750,
+               12751,
+               12752,
+               12753
+            ],
+            d: [
+               'Increases your Defense skill by 7.',
+               'Increases your Defense skill by 14.',
+               'Increases your Defense skill by 20.',
             ],
             x: 2,
-            y: 1,
+            y: 0,
             c: 0,
-            iconname: 'Spell_Holy_Devotion',
-            aura: function (count) { return { armormod: count * 2 } },
+            iconname: 'Spell_Nature_MirrorImage',
+            aura: function (count) { return { defense: count == 3 ? 20 : count * 7 } },
          },
          {
             i: 141,
@@ -889,6 +839,30 @@ var talents = [
             aura: function (count) { return { stunresist: count * 3 } },
          },
          {
+            i: 140,
+            n: 'Toughness',
+            m: 5,
+            s: [
+               12299,
+               12761,
+               12762,
+               12763,
+               12764
+            ],
+            d: [
+               'Increases your armor value from items by 2%.',
+               'Increases your armor value from items by 4%.',
+               'Increases your armor value from items by 6%.',
+               'Increases your armor value from items by 8%.',
+               'Increases your armor value from items by 10%.'
+            ],
+            x: 2,
+            y: 1,
+            c: 0,
+            iconname: 'Spell_Holy_Devotion',
+            aura: function (count) { return { armormod: count * 2 } },
+         },
+         {
             i: 153,
             n: 'Last Stand',
             m: 1,
@@ -901,7 +875,7 @@ var talents = [
             x: 0,
             y: 2,
             r: [
-               2,
+               0,
                2
             ],
             c: 0,
@@ -909,28 +883,40 @@ var talents = [
             aura: function (count) { return { laststand: count } },
          },
          {
-            i: 145,
-            n: 'Improved Shield Block',
-            m: 3,
+            i: 250,
+            n: 'Improved Intervene',
+            m: 2,
             s: [
-               12945,
-               12307,
-               12944
+               51591,
+               51592
             ],
             d: [
-               'Allows your Shield Block ability to block an additional attack and increases the duration by 0.5 second.',
-               'Allows your Shield Block ability to block an additional attack and increases the duration by 1 second.',
-               'Allows your Shield Block ability to block an additional attack and increases the duration by 2 seconds.'
+               'Grants a 50% chance to gain immunity to movement impairing effects for 3 sec after using Intervene.',
+               'Grants a 100% chance to gain immunity to movement impairing effects for 3 sec after using Intervene.'
             ],
             x: 1,
             y: 2,
-            r: [
-               0,
-               5
-            ],
             c: 0,
-            iconname: 'Ability_Defend',
-            aura: function (count) { return { extrablock: count } },
+            iconname: 'Ability_Warrior_Intervene',
+            aura: function (count) { return { impintervene: count } },
+         },
+         {
+            i: 143,
+            n: 'Improved Taunt',
+            m: 2,
+            s: [
+               12302,
+               12765
+            ],
+            d: [
+               'Reduces the cooldown of your Taunt ability by 1 sec.',
+               'Reduces the cooldown of your Taunt ability by 2 sec.'
+            ],
+            x: 2,
+            y: 2,
+            c: 0,
+            iconname: 'Spell_Nature_Reincarnation',
+            aura: function (count) { return { imptaunt: count } },
          },
          {
             i: 147,
@@ -942,15 +928,52 @@ var talents = [
                12800
             ],
             d: [
-               'Gives your Revenge ability a 15% chance to stun the target for 3 sec.',
-               'Gives your Revenge ability a 30% chance to stun the target for 3 sec.',
-               'Gives your Revenge ability a 45% chance to stun the target for 3 sec.'
+               'Gives your Revenge ability a 15% chance to stun the target for 3 sec and reduces its cooldown by 0.5 sec.',
+               'Gives your Revenge ability a 30% chance to stun the target for 3 sec and reduces its cooldown by 1 sec.',
+               'Gives your Revenge ability a 45% chance to stun the target for 3 sec and reduces its cooldown by 1.5 sec.'
             ],
-            x: 2,
+            x: 3,
             y: 2,
             c: 0,
             iconname: 'Ability_Warrior_Revenge',
-            aura: function (count) { return { imprevenge: count * 15 } },
+            aura: function (count) { return { imprevenge: count } },
+         },
+         {
+            i: 149,
+            n: 'Gag Order',
+            m: 2,
+            s: [
+               12311,
+               12958
+            ],
+            d: [
+               'Your Shield Slam has a 50% chance to dispell 1 magic effect on the target and your Shield Bash ability has a 50% chance to silence the target for 3 sec.',
+               'Your Shield Slam has a 100% chance to dispell 1 magic effect on the target and your Shield Bash ability has a 100% chance to silence the target for 3 sec.'
+            ],
+            x: 0,
+            y: 3,
+            c: 0,
+            iconname: 'Ability_Warrior_ShieldBash',
+            aura: function (count) { return { impshieldbash: count * 50 } },
+         },
+         {
+            i: 151,
+            n: 'Improved Disarm',
+            m: 2,
+            s: [
+               12313,
+               12804,
+               12807
+            ],
+            d: [
+               'Decrease the cooldown of your Disarm Ability by 10 secs.',
+               'Decrease the cooldown of your Disarm Ability by 20 secs.'
+            ],
+            x: 1,
+            y: 3,
+            c: 0,
+            iconname: 'Ability_Warrior_Disarm',
+            aura: function (count) { return { impdisarm: count } },
          },
          {
             i: 144,
@@ -970,121 +993,11 @@ var talents = [
                'Increases the threat generated by your attacks by 12% while in Defensive Stance.',
                'Increases the threat generated by your attacks by 15% while in Defensive Stance.'
             ],
-            x: 3,
-            y: 2,
+            x: 2,
+            y: 3,
             c: 0,
             iconname: 'Ability_Warrior_InnerRage',
             aura: function (count) { return { threatmod: count * 3 } },
-         },
-         {
-            i: 146,
-            n: 'Improved Sunder Armor',
-            m: 3,
-            s: [
-               12308,
-               12810,
-               12811
-            ],
-            d: [
-               'Reduces the cost of your Sunder Armor ability by 1 rage point.',
-               'Reduces the cost of your Sunder Armor ability by 2 rage points.',
-               'Reduces the cost of your Sunder Armor ability by 3 rage points.'
-            ],
-            x: 0,
-            y: 3,
-            c: 0,
-            iconname: 'Ability_Warrior_Sunder',
-            aura: function (count) { return { impsunderarmor: count } },
-         },
-         {
-            i: 151,
-            n: 'Improved Disarm',
-            m: 3,
-            s: [
-               12313,
-               12804,
-               12807
-            ],
-            d: [
-               'Increases the duration of your Disarm ability by 1 secs.',
-               'Increases the duration of your Disarm ability by 2 secs.',
-               'Increases the duration of your Disarm ability by 3 secs.'
-            ],
-            x: 1,
-            y: 3,
-            c: 0,
-            iconname: 'Ability_Warrior_Disarm',
-            aura: function (count) { return { impdisarm: count } },
-         },
-         {
-            i: 143,
-            n: 'Improved Taunt',
-            m: 2,
-            s: [
-               12302,
-               12765
-            ],
-            d: [
-               'Reduces the cooldown of your Taunt ability by 1 sec.',
-               'Reduces the cooldown of your Taunt ability by 2 sec.'
-            ],
-            x: 2,
-            y: 3,
-            c: 0,
-            iconname: 'Spell_Nature_Reincarnation',
-            aura: function (count) { return { imptaunt: count } },
-         },
-         {
-            i: 150,
-            n: 'Improved Shield Wall',
-            m: 2,
-            s: [
-               12312,
-               12803
-            ],
-            d: [
-               'Increases the effect duration of your Shield Wall ability by 3 secs.',
-               'Increases the effect duration of your Shield Wall ability by 5 secs.'
-            ],
-            x: 0,
-            y: 4,
-            c: 0,
-            iconname: 'Ability_Warrior_ShieldWall',
-            aura: function (count) { return { impshieldwall: count == 2 ? 5 : count * 3 } },
-         },
-         {
-            i: 152,
-            n: 'Concussion Blow',
-            m: 1,
-            s: [
-               12809
-            ],
-            d: [
-               'Stuns the opponent for 5 sec.'
-            ],
-            x: 1,
-            y: 4,
-            c: 0,
-            iconname: 'Ability_ThunderBolt',
-            aura: function (count) { return { concussionblow: count } },
-         },
-         {
-            i: 149,
-            n: 'Improved Shield Bash',
-            m: 2,
-            s: [
-               12311,
-               12958
-            ],
-            d: [
-               'Gives your Shield Bash ability a 50% chance to silence the target for 3 sec.',
-               'Gives your Shield Bash ability a 100% chance to silence the target for 3 sec.'
-            ],
-            x: 2,
-            y: 4,
-            c: 0,
-            iconname: 'Ability_Warrior_ShieldBash',
-            aura: function (count) { return { impshieldbash: count * 50 } },
          },
          {
             i: 702,
@@ -1104,8 +1017,8 @@ var talents = [
                'Increases the damage you deal with One-Handed Melee weapons by 8%.',
                'Increases the damage you deal with One-Handed Melee weapons by 10%.'
             ],
-            x: 2,
-            y: 5,
+            x: 0,
+            y: 4,
             c: 0,
             iconname: 'INV_Sword_20',
             aura: function (count) { return { onemod: count * 0.02 } },
@@ -1121,15 +1034,113 @@ var talents = [
                'Slam the target with your shield, causing 225 to 236 damage, modified by your shield block value, and has a 50% chance of dispelling 1 magic effect on the target.  Also causes a high amount of threat.'
             ],
             x: 1,
-            y: 6,
+            y: 4,
+            c: 0,
+            enable: 'Shield Slam',
+            iconname: 'INV_Shield_05',
+            aura: function (count) { return { shieldslam: count } },
+         },
+         {
+            i: 248,
+            n: 'Improved Shield Slam',
+            m: 2,
+            s: [
+               51598,
+               51599
+            ],
+            d: [
+               'Reduce the cooldown of Shield Slam by 0.75 sec, and using this ability will also grant you an extra 35% chance to block the next attack within 4.5 sec.',
+               'Reduce the cooldown of Shield Slam by 1.5 sec, and using this ability will also grant you an extra 70% chance to block the next attack within 4.5 sec.'
+            ],
+            x: 2,
+            y: 4,
             r: [
                13,
                1
             ],
             c: 0,
-            enable: 'Shield Slam',
-            iconname: 'INV_Shield_05',
-            aura: function (count) { return { shieldslam: count } },
+            iconname: 'Ability_Warrior_ShieldMastery',
+            aura: function (count) { return { shieldslamcd: count * 0.75 } },
+         },
+         {
+            i: 249,
+            n: 'Reprisal',
+            m: 2,
+            s: [
+               51593,
+               51594
+            ],
+            d: [
+               'Increases the damage dealt by your Revenge ability by 25%, and has a 50% chance to refund its rage cost if successful.',
+               'Increases the damage dealt by your Revenge ability by 50%, and has a 100% chance to refund its rage cost if successful.'
+            ],
+            x: 3,
+            y: 4,
+            r: [
+               8,
+               3
+            ],
+            c: 0,
+            iconname: 'ability_warrior_reprisal',
+            aura: function (count) { return { reprisal: count } },
+         },
+         {
+            i: 150,
+            n: 'Improved Shield Wall',
+            m: 2,
+            s: [
+               12312,
+               12803
+            ],
+            d: [
+               'Increases the effect duration of your Shield Wall ability by 1 secs and reduces its cooldown by 5 min.',
+               'Increases the effect duration of your Shield Wall ability by 2 secs and reduces its cooldown by 10 min.'
+            ],
+            x: 0,
+            y: 5,
+            c: 0,
+            iconname: 'Ability_Warrior_ShieldWall',
+            aura: function (count) { return { impshieldwall: count } },
+         },
+         {
+            i: 146,
+            n: 'Defensive Tactics',
+            m: 3,
+            s: [
+               51606,
+               51607,
+               51608
+            ],
+            d: [
+               'While wearing a shield you retain 60% of the increased threat generation from Defensive Stance in other stances.',
+               'While wearing a shield you retain 120% of the increased threat generation from Defensive Stance in other stances.',
+               'While wearing a shield you retain 180% of the increased threat generation from Defensive Stance in other stances.'
+            ],
+            x: 2,
+            y: 5,
+            c: 0,
+            iconname: 'ability_warrior_stalwartprotector',
+            aura: function (count) { return { threatmod: 60 * count } },
+         },
+         {
+            i: 152,
+            n: 'Concussion Blow',
+            m: 1,
+            s: [
+               12809
+            ],
+            d: [
+               'Stuns the opponent for 5 sec.'
+            ],
+            r: [
+               13,
+               1
+            ],
+            x: 1,
+            y: 6,
+            c: 0,
+            iconname: 'Ability_ThunderBolt',
+            aura: function (count) { return { concussionblow: count } },
          }
       ]
    }

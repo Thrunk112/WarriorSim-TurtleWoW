@@ -60,9 +60,13 @@ SIM.SETTINGS = {
         });
 
         view.talents.on('click', '.icon', function (e) {
-            let talent = view.getTalent($(this));
-            let total = view.getTalentTotal($(this));
-            if (total < talent.y * 5) return;
+            e.preventDefault();
+            let treeIndex = parseInt($(this).data('talent-tree'));
+            let talentIndex = parseInt($(this).data('talent-index'));
+            let talent = talents[treeIndex].t[talentIndex];
+
+            // Check if talent is available (tier requirements + prerequisites)
+            if (!view.isTalentAvailable(treeIndex, talentIndex)) return;
 
             let storage = JSON.parse(localStorage[mode + (globalThis.profileid || 0)]);
             let level = parseInt(storage.level);
@@ -71,7 +75,7 @@ SIM.SETTINGS = {
                 for (let talent of tree.t)
                     count += talent.c;
             let available = Math.max(level - 9 - count, 0);
-            if (available <= 0) return; 
+            if (available <= 0) return;
 
             talent.c = talent.c < talent.m ? talent.c + 1 : talent.m;
             $(this).attr('data-count', talent.c);
@@ -83,29 +87,21 @@ SIM.SETTINGS = {
             $(this).find('a').attr('href', WEB_DB_URL + 'spell=' + talent.s[talent.c == 0 ? 0 : talent.c - 1]);
             SIM.UI.updateSession();
             SIM.UI.updateSidebar();
+            view.updateTalentStates();
             view.buildSpells();
         });
 
         view.talents.on('contextmenu', '.icon', function (e) {
             e.preventDefault();
-            let talent = view.getTalent($(this));
-            if (talent.c < 1) return;
-            talent.c--;
+            let treeIndex = parseInt($(this).data('talent-tree'));
+            let talentIndex = parseInt($(this).data('talent-index'));
+            let talent = talents[treeIndex].t[talentIndex];
 
-            let valid = true;
-            let count = [];
-            let tree = $(this).parents('table').index() - 2;
-            for (let t of talents[tree].t)
-                count[t.y] = (count[t.y] || 0) + t.c;
-            for(let i = 0; i < count.length; i++)
-                count[i] += count[i-1] || 0;
-            for (let t of talents[tree].t)
-                if (t.c && t.y * 5 > count[t.y - 1])
-                    valid = false;
-            if (!valid) {
-                talent.c++;
-                return;
-            }
+            // Check if this talent can be removed (includes all validation)
+            if (!view.canTalentBeRemoved(treeIndex, talentIndex)) return;
+
+            // If we get here, removal is valid
+            talent.c--;
 
             $(this).attr('data-count', talent.c);
             $(this).removeClass('maxed');
@@ -124,6 +120,8 @@ SIM.SETTINGS = {
             $(this).find('a').attr('href', WEB_DB_URL + 'spell=' + talent.s[talent.c == 0 ? 0 : talent.c - 1]);
             SIM.UI.updateSession();
             SIM.UI.updateSidebar();
+            view.updateTalentStates();
+            view.buildSpells();
         });
 
         view.talents.on('click', '.js-talents-reset', function (e) {
@@ -133,7 +131,18 @@ SIM.SETTINGS = {
                     talent.c = 0;
             SIM.UI.updateSession();
             SIM.UI.updateSidebar();
-            view.buildTalents();
+            view.updateTalentStates();
+            view.buildSpells();
+        });
+
+        view.talents.on('click', '.clear-tree-btn', function (e) {
+            e.preventDefault();
+            let treeIndex = parseInt($(this).data('tree'));
+            for (let talent of talents[treeIndex].t)
+                talent.c = 0;
+            SIM.UI.updateSession();
+            SIM.UI.updateSidebar();
+            view.updateTalentStates();
             view.buildSpells();
         });
 
@@ -750,19 +759,250 @@ SIM.SETTINGS = {
     buildTalents: function () {
         var view = this;
         view.talents.find('table').remove();
-        for (let tree of talents) {
-            let table = $('<table><tr><th colspan="4">' + tree.n + '</th></tr></table>');
+        for (let treeIndex = 0; treeIndex < talents.length; treeIndex++) {
+            let tree = talents[treeIndex];
+            let table = $('<table data-tree-index="' + treeIndex + '"><tr><th colspan="4">' + tree.n + '</th></tr></table>');
             for (let i = 0; i < 7; i++) table.prepend('<tr><td></td><td></td><td></td><td></td></tr>');
-            for (let talent of tree.t) {
+            for (let talentIndex = 0; talentIndex < tree.t.length; talentIndex++) {
+                let talent = tree.t[talentIndex];
                 let div = $('<div class="icon" data-count="' + talent.c + '" data-x="' + talent.x + '" data-y="' + talent.y + '"></div>');
-                div.html('<img src="https://wow.zamimg.com/images/wow/icons/medium/' + talent.iconname.toLowerCase() + '.jpg" alt="' + talent.n + '" />');
+                // Try remote first, fallback to local png then jpg
+                var img = $('<img alt="' + talent.n + '" />');
+                var tryLocalJpg = function() {
+                    $(this).off('error'); // No more fallbacks after this
+                    $(this).attr('src', 'dist/img/' + talent.iconname.toLowerCase() + '.jpg');
+                };
+                var tryLocalPng = function() {
+                    $(this).off('error').on('error', tryLocalJpg);
+                    $(this).attr('src', 'dist/img/' + talent.iconname.toLowerCase() + '.png');
+                };
+                img.on('error', tryLocalPng);
+                img.attr('src', 'https://wow.zamimg.com/images/wow/icons/medium/' + talent.iconname.toLowerCase() + '.jpg');
+                div.html(img);
                 if (talent.c >= talent.m) div.addClass('maxed');
-                div.append(`<a href="${WEB_DB_URL}spell=` + talent.s[talent.c == 0 ? 0 : talent.c - 1] + `" class="wh-tooltip"></a>`);
+
+                // Check if talent requirements are met and it's available
+                if (talent.c == 0 && view.isTalentAvailable(treeIndex, talentIndex)) {
+                    div.addClass('available');
+                }
+
+                div.attr('data-talent-tree', treeIndex);
+                div.attr('data-talent-index', talentIndex);
+                div.addClass('talent-tooltip');
                 table.find('tr').eq(talent.y).children().eq(talent.x).append(div);
             }
+            // Add clear button row at the bottom
+            let clearRow = $('<tr><td colspan="4" style="text-align: center; padding: 5px;"></td></tr>');
+            let clearButton = $('<button class="clear-tree-btn" data-tree="' + treeIndex + '" style="padding: 3px 10px; background: #ddd; color: #333; border: 1px solid #aaa; border-radius: 3px; cursor: pointer; font-size: 11px; font-weight: 500;">Clear</button>');
+            clearRow.find('td').append(clearButton);
+            table.append(clearRow);
             view.talents.append(table);
         }
+
+        // Initialize tooltips after building talents
+        view.initTurtleTooltips();
     },
+
+    updateTalentStates: function() {
+        var view = this;
+        // Update talent visual states without rebuilding
+        for (let treeIndex = 0; treeIndex < talents.length; treeIndex++) {
+            for (let talentIndex = 0; talentIndex < talents[treeIndex].t.length; talentIndex++) {
+                let talent = talents[treeIndex].t[talentIndex];
+                let talentDiv = view.talents.find(`table[data-tree-index="${treeIndex}"] [data-x="${talent.x}"][data-y="${talent.y}"]`);
+
+                // Update count attribute and before pseudo-element content
+                talentDiv.attr('data-count', talent.c);
+
+                // Update maxed class
+                if (talent.c >= talent.m) {
+                    talentDiv.addClass('maxed');
+                } else {
+                    talentDiv.removeClass('maxed');
+                }
+
+                // Update availability (greyscale) for rank 0 talents
+                if (talent.c == 0) {
+                    if (view.isTalentAvailable(treeIndex, talentIndex)) {
+                        talentDiv.addClass('available');
+                    } else {
+                        talentDiv.removeClass('available');
+                    }
+                } else {
+                    talentDiv.removeClass('available');
+                }
+            }
+        }
+    },
+
+    isTalentAvailable: function (treeIndex, talentIndex) {
+        let talent = talents[treeIndex].t[talentIndex];
+
+        // Always allow tier 0 talents
+        if (talent.y === 0) return true;
+
+        // Check if enough points in tree for this tier
+        let totalPointsInTree = 0;
+        for (let t of talents[treeIndex].t) {
+            totalPointsInTree += t.c;
+        }
+
+        // Need 5 points per tier (tier 1 = 5 points, tier 2 = 10 points, etc.)
+        let requiredPointsForTier = talent.y * 5;
+        if (totalPointsInTree < requiredPointsForTier) return false;
+
+        // Check specific talent requirements (prerequisite talents)
+        if (talent.r) {
+            let requiredTalentIndex = talent.r[0];
+            let requiredPoints = talent.r[1];
+            if (requiredTalentIndex < talents[treeIndex].t.length) {
+                let requiredTalent = talents[treeIndex].t[requiredTalentIndex];
+                if (requiredTalent.c < requiredPoints) return false;
+            }
+        }
+
+        return true;
+    },
+
+    canTalentBeRemoved: function (treeIndex, talentIndex) {
+        let talent = talents[treeIndex].t[talentIndex];
+
+        // Can't remove if talent has no points
+        if (talent.c < 1) return false;
+
+        // Check if any other talents in this tree depend on this talent
+        for (let i = 0; i < talents[treeIndex].t.length; i++) {
+            let otherTalent = talents[treeIndex].t[i];
+            // If this other talent has points and depends on the talent we want to remove
+            if (otherTalent.c > 0 && otherTalent.r) {
+                let requiredTalentIndex = otherTalent.r[0];
+                let requiredPoints = otherTalent.r[1];
+
+                // If the other talent depends on this one
+                if (requiredTalentIndex === talentIndex) {
+                    // Check if removing 1 point would break the dependency
+                    if (talent.c - 1 < requiredPoints) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        // Check tier requirements - simulate removing the point and validate
+        let count = [];
+        // First calculate current tier totals after removing one point
+        for (let t of talents[treeIndex].t) {
+            let points = t.c;
+            // If this is the talent we're removing from, subtract 1
+            if (t === talent) points--;
+            count[t.y] = (count[t.y] || 0) + points;
+        }
+
+        // Build cumulative totals (tier 0 + tier 1, tier 0 + tier 1 + tier 2, etc.)
+        for(let i = 0; i < count.length; i++)
+            count[i] += count[i-1] || 0;
+
+        // Check if any talents with points would violate tier requirements after removal
+        for (let t of talents[treeIndex].t) {
+            let points = t.c;
+            // If this is the talent we're removing from, subtract 1
+            if (t === talent) points--;
+            // If talent has points and tier requirement would be violated
+            if (points > 0 && t.y * 5 > count[t.y - 1]) {
+                return false;
+            }
+        }
+
+        return true;
+    },
+
+    initTurtleTooltips: function() {
+        var view = this;
+        // Remove existing tooltip events to avoid duplicates
+        view.talents.off('mouseenter mouseleave', '.talent-tooltip');
+
+        // Add hover events for talent tooltips
+        view.talents.on('mouseenter', '.talent-tooltip', function(e) {
+            var treeIndex = $(this).data('talent-tree');
+            var talentIndex = $(this).data('talent-index');
+            view.showTalentTooltip(e, treeIndex, talentIndex);
+        });
+
+        view.talents.on('mouseleave', '.talent-tooltip', function(e) {
+            view.hideTalentTooltip();
+        });
+    },
+
+    showTalentTooltip: function(event, treeIndex, talentIndex) {
+        var view = this;
+
+        // Create tooltip container if it doesn't exist
+        if (!$('#talent-tooltip').length) {
+            $('body').append('<div id="talent-tooltip" style="position: absolute; z-index: 9999; background: #000; border: 1px solid #666; border-radius: 4px; padding: 8px; max-width: 300px; display: none; font-size: 12px; color: #fff;"></div>');
+        }
+
+        var tooltip = $('#talent-tooltip');
+        var talent = talents[treeIndex].t[talentIndex];
+
+        if (!talent) {
+            return;
+        }
+
+        // Build tooltip content from talent data
+        var tooltipHtml = '<div style="color: #fff;">';
+        tooltipHtml += '<div style="color: #ffd100; font-weight: bold; margin-bottom: 4px;">' + talent.n + '</div>';
+
+        // Show current rank / max rank
+        var currentRank = talent.c || 0;
+        tooltipHtml += '<div style="color: #00ff00; font-size: 11px; margin-bottom: 6px;">Rank ' + currentRank + '/' + talent.m + '</div>';
+
+        // Show current rank description if we have points in it
+        if (talent.d && currentRank > 0 && talent.d[currentRank - 1]) {
+            tooltipHtml += '<div style="color: #ffff00; line-height: 1.3;">' + talent.d[currentRank - 1] + '</div>';
+        }
+
+        // Show next rank description if available
+        if (currentRank < talent.m && talent.d && talent.d[currentRank]) {
+            var prefix = currentRank > 0 ? 'Next rank: ' : '';
+            tooltipHtml += '<div style="color: #00ff00; margin-top: 6px; line-height: 1.3;">' + prefix + talent.d[currentRank] + '</div>';
+        }
+
+        tooltipHtml += '</div>';
+
+        tooltip.html(tooltipHtml);
+        view.positionTooltip(tooltip, event);
+        tooltip.show();
+    },
+
+    hideTalentTooltip: function() {
+        $('#talent-tooltip').hide();
+    },
+
+    positionTooltip: function(tooltip, event) {
+        var x = event.pageX + 10;
+        var y = event.pageY + 10;
+
+        // Keep tooltip within viewport
+        var tooltipWidth = tooltip.outerWidth();
+        var tooltipHeight = tooltip.outerHeight();
+        var windowWidth = $(window).width();
+        var windowHeight = $(window).height();
+        var scrollTop = $(window).scrollTop();
+
+        if (x + tooltipWidth > windowWidth) {
+            x = event.pageX - tooltipWidth - 10;
+        }
+
+        if (y + tooltipHeight > scrollTop + windowHeight) {
+            y = event.pageY - tooltipHeight - 10;
+        }
+
+        tooltip.css({
+            left: x + 'px',
+            top: y + 'px'
+        });
+    },
+
 
     buildRunes: function () {
         var view = this;
@@ -826,18 +1066,18 @@ SIM.SETTINGS = {
     },
 
     getTalent: function (div) {
-        let tree = div.parents('table').index() - 1;
+        let tree = div.parents('table').data('tree-index');
         let x = div.data('x');
         let y = div.data('y');
-        for (let talent of talents[tree - 1].t)
+        for (let talent of talents[tree].t)
             if (talent.x == x && talent.y == y)
                 return talent;
     },
 
     getTalentTotal: function (div) {
-        let tree = div.parents('table').index() - 1;
+        let tree = div.parents('table').data('tree-index');
         let count = 0;
-        for (let talent of talents[tree - 1].t)
+        for (let talent of talents[tree].t)
             count += parseInt(talent.c);
         return count;
     }

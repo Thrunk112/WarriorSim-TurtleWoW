@@ -53,6 +53,12 @@ function getGlobalsDelta() {
 }
 
 function updateGlobals(params) {
+    // Reset all talents to 0 first to prevent corruption
+    for (let tree of talents)
+        for (let talent of tree.t)
+            talent.c = 0;
+
+    // Then set from session data
     for (let tree in params.talents)
         for (let talent in params.talents[tree].t)
             talents[tree].t[talent].c = params.talents[tree].t[talent];

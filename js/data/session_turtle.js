@@ -411,21 +411,21 @@ var session = {
            "n": "Arms",
            "t": [
                3, //Improved Heroic Strike
-               0, //deflection
-               2, //imp rend
-               0, //imp charge
                5, //tactical mastery
+               2, //imp rend
+               1, //imp charge
+               0, //deflection
                0, //TC
-               2, //OP
-               0, //Counterattack
+               1, //masterstrike
+               0, //OP
                3, //deep wounds
                0, //2hand spec
                2, //impale
                0, //master of arms
                0, //sweeping strikes
                0, //precision cut
-               0, //imp slam
                0, //imp disc
+               0, //imp slam
                0, //boundless
                0 //ms
            ]
@@ -435,26 +435,28 @@ var session = {
            "t": [
                0, //booming voice
                5, //cruelty
-               0, //demo shout
-               0, //unbridled
-               0, //imp pummel
-               0, //piercing howl
-               3, //bloodcraze
-               5, //imp shout
                5, //dw spec
-               2, //imp execute
+               0, //unbridled
+               5, //imp shout
+               1, //piercing howl
+               0, //bloodcraze
+               0, //imp intercept
                5, //enrage
+               0, //imp pummel
                2, //imp whirlwind
                1, //dw
-               0, //imp intercept
-               0, //blooddrinker
+               2, //imp execute
+               2, //berserker rage
                5, //flurry
+               0, // blood drinker
                1 // BT
            ]
        },
        {
            "n": "Protection",
            "t": [
+               0,
+               0,
                0,
                0,
                0,
