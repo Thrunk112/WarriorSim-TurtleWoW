@@ -947,7 +947,8 @@ class Player {
         this.stats.castspeed = this.base.castspeed;
         if (this.auras.flurry && this.auras.flurry.timer){
             this.stats.haste *= (1 + this.auras.flurry.mult_stats.haste / 100);
-            this.stats.castspeed *= (1 + this.auras.flurry.mult_stats.haste / 100);
+            this.stats.castspeed /= (1 - this.auras.flurry.mult_stats.haste / 100); //1.18 flurry bug for slam
+            //this.stats.castspeed *= (1 + this.auras.flurry.mult_stats.haste / 100); //correct flurry
         }    
         if (this.auras.quicknesspotion && this.auras.quicknesspotion.timer){
             this.stats.haste *= (1 + this.auras.quicknesspotion.mult_stats.haste / 100);
