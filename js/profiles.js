@@ -232,7 +232,8 @@ SIM.PROFILES = {
             view.presets.empty();
             view.presets.append(`
                 <label>Presets:</label>
-                <div class="import-th">DW Fury Bis vs Boss (60 sec, Single Target)</div>`); //add additional presets here
+                <div class="import-dw">DW Fury Bis vs Boss (60 sec, Single Target)</div>
+                <div class="import-th">2h Fury Bis vs Boss (60 sec, Single Target)</div>`); //add additional presets here
         }
             
         },
@@ -340,11 +341,8 @@ SIM.PROFILES = {
                 if (typeof spell.unqueue !== 'undefined') obj.unqueue = spell.unqueue;
                 if (typeof spell.unqueueactive !== 'undefined') obj.unqueueactive = spell.unqueueactive;
                 if (typeof spell.exmacro !== 'undefined') obj.exmacro = spell.exmacro;
-                if (typeof spell.decisive !== 'undefined') obj.decisive = spell.decisive;
                 if (typeof spell.globals !== 'undefined') obj.globals = spell.globals;
                 if (typeof spell.globalsactive !== 'undefined') obj.globalsactive = spell.globalsactive;
-                if (typeof spell.swingreset !== 'undefined') obj.swingreset = spell.swingreset;
-                if (typeof spell.afterswing !== 'undefined') obj.afterswing = spell.afterswing;
                 if (typeof spell.alwaystails !== 'undefined') obj.alwaystails = spell.alwaystails;
                 if (typeof spell.alwaysheads !== 'undefined') obj.alwaysheads = spell.alwaysheads;
                 if (typeof spell.zerkerpriority !== 'undefined') obj.zerkerpriority = spell.zerkerpriority;
@@ -366,6 +364,9 @@ SIM.PROFILES = {
                 if (typeof spell.switchortime !== 'undefined') obj.switchortime = spell.switchortime;
                 if (typeof spell.switchorrage !== 'undefined') obj.switchorrage = spell.switchorrage;
                 if (typeof spell.secondarystance !== 'undefined') obj.secondarystance = spell.secondarystance;
+                if (typeof spell.swingpercent !== 'undefined') obj.swingpercent = spell.swingpercent;
+                if (typeof spell.swingpercentactive !== 'undefined') obj.swingpercentactive = spell.swingpercentactive;
+                if (typeof spell.hasFlurry !== 'undefined') obj.hasFlurry = spell.hasFlurry;
                 minified.rotation.push(obj);
             }
         }
@@ -438,11 +439,8 @@ SIM.PROFILES = {
                     if (typeof newspell.unqueue !== 'undefined') spell.unqueue = newspell.unqueue;
                     if (typeof newspell.unqueueactive !== 'undefined') spell.unqueueactive = newspell.unqueueactive;
                     if (typeof newspell.exmacro !== 'undefined') spell.exmacro = newspell.exmacro;
-                    if (typeof newspell.decisive !== 'undefined') spell.decisive = newspell.decisive;
                     if (typeof newspell.globals !== 'undefined') spell.globals = newspell.globals;
                     if (typeof newspell.globalsactive !== 'undefined') spell.globalsactive = newspell.globalsactive;
-                    if (typeof newspell.afterswing !== 'undefined') spell.afterswing = newspell.afterswing;
-                    if (typeof newspell.swingreset !== 'undefined') spell.swingreset = newspell.swingreset;
                     if (typeof newspell.alwaystails !== 'undefined') spell.alwaystails = newspell.alwaystails;
                     if (typeof newspell.alwaysheads !== 'undefined') spell.alwaysheads = newspell.alwaysheads;
                     if (typeof newspell.zerkerpriority !== 'undefined') spell.zerkerpriority = newspell.zerkerpriority;
@@ -464,6 +462,9 @@ SIM.PROFILES = {
                     if (typeof newspell.switchortime !== 'undefined') spell.switchortime = newspell.switchortime;
                     if (typeof newspell.switchorrage !== 'undefined') spell.switchorrage = newspell.switchorrage;
                     if (typeof newspell.secondarystance !== 'undefined') spell.secondarystance = newspell.secondarystance;
+                    if (typeof newspell.swingpercent !== 'undefined') spell.swingpercent = newspell.swingpercent;
+                    if (typeof newspell.swingpercentactive !== 'undefined') spell.swingpercentactive = newspell.swingpercentactive;
+                    if (typeof newspell.hasFlurry !== 'undefined') spell.hasFlurry = newspell.hasFlurry;
                 }
                 else {
                     spell.active = false;

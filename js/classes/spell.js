@@ -17,6 +17,7 @@ class Spell {
         this.school = SCHOOL.PHYSICAL;
         this.minrage = 0;
         this.offensive = true;
+        this.casttime = 0;
 
         let spell = spells.filter(s => s.id == this.id)[0];
         if (!spell) return;
@@ -32,10 +33,9 @@ class Spell {
         if (spell.unqueueactive) this.unqueue = parseInt(spell.unqueue);
         if (spell.exmacro) this.exmacro = spell.exmacro;
         if (spell.globalsactive) this.globals = spell.globals;
-        if (spell.decisive) this.decisive = spell.decisive;
         if (spell.bloodsurge) this.bloodsurge = spell.bloodsurge;
-        if (spell.afterswing) this.afterswing = spell.afterswing;
-        if (spell.swingreset) this.swingreset = spell.swingreset;
+        if (spell.hasFlurry) this.hasFlurry = spell.hasFlurry;
+        if (spell.swingpercentactive) this.swingpercent = parseInt(spell.swingpercent);
         if (spell.timetoendactive) this.timetoend = parseInt(spell.timetoend) * 1000;
         if (spell.timetostartactive) this.timetostart = parseInt(spell.timetostart) * 1000;
         if (spell.zerkerpriority) this.zerkerpriority = spell.zerkerpriority;
@@ -48,6 +48,7 @@ class Spell {
         if (spell.switchdefault) this.switchdefault = spell.switchdefault;
         if (spell.durationactive) this.duration = parseInt(spell.duration);
         if (spell.swingtimeractive) this.swingtimer = parseFloat(spell.swingtimer) * 1000;
+        if (spell.swingtimerlessactive) this.swingtimerless = parseFloat(spell.swingtimerless) * 1000;
         if (spell.priority) this.priority = parseInt(spell.priority);
         if (spell.expriority) this.expriority = parseInt(spell.expriority);
         if (spell.switchechoesactive) this.switchechoestime = parseFloat(spell.switchechoestime) * 1000;
@@ -630,14 +631,14 @@ class Slam extends Spell {
     constructor(player, id) {
         super(player, id);
         this.cost = 15 - player.ragecostbonus;
-        this.casttime = (this.decisive ? 2000 : 1500) - (player.talents.impslam * 100);
+        this.casttime = ((this.player.mode == 'turtle' ? 2500 : 1500) - (player.talents.impslam * 100));  
         this.cooldown = player.precisetiming ? 6 : 0;
         this.mhthreshold = 0;
     }
     dmg(weapon) {
         if (!weapon) weapon = this.player.mh;
         let dmg, mod = 1;
-        dmg = (this.decisive && this.player.level == 60 ? this.value2 : this.value1) + rng(weapon.mindmg + weapon.bonusdmg, weapon.maxdmg + weapon.bonusdmg);
+        dmg = (this.player.mode == 'turtle' ? 0 : this.value1) + rng(weapon.mindmg + weapon.bonusdmg, weapon.maxdmg + weapon.bonusdmg);
         dmg += (this.player.stats.ap / 14) * weapon.speed + this.player.stats.moddmgdone;
         if (this.player.heroicbonus) mod = 1.25;
         return dmg * this.player.stats.dmgmod * mod;
@@ -646,7 +647,7 @@ class Slam extends Spell {
         if (this.player.freeslam) this.offhandhit = true;
         if (!this.player.freeslam) this.player.rage -= this.cost;
         this.maxdelay = rng(this.player.reactionmin, this.player.reactionmax);
-        if (this.casttime && !this.player.freeslam) {
+        if (this.casttime && !this.player.freeslam && this.player.mode !='turtle') {
             this.player.mh.use();
             if (this.player.oh) this.player.oh.use();
         }
@@ -656,11 +657,13 @@ class Slam extends Spell {
     }
     canUse() {
         return !this.timer && !this.player.timer && this.player.mh.timer >= this.mhthreshold && (this.player.freeslam || this.cost <= this.player.rage) &&
-            (!this.player.bloodsurge || this.player.freeslam) &&
+            (!this.player.bloodsurge || this.player.freeslam) && (!this.swingtimerless || this.player.mh.timer >= this.swingtimerless) &&
             (!this.minrage || this.player.rage >= this.minrage) &&
             (!this.maincd ||
                 (this.player.spells.bloodthirst && this.player.spells.bloodthirst.timer >= this.maincd) ||
-                (this.player.spells.mortalstrike && this.player.spells.mortalstrike.timer >= this.maincd));
+                (this.player.spells.mortalstrike && this.player.spells.mortalstrike.timer >= this.maincd)) && (!this.wwcd ||
+                (this.player.spells.whirlwind && this.player.spells.whirlwind.timer >= this.wwcd)) && 
+                (!this.hasFlurry || (this.player.auras.flurry && this.player.auras.flurry.timer));
     }
 }
 

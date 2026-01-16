@@ -691,7 +691,8 @@ var buffs = [
       iconname: "inv_misc_food_33",
       group: "food",
       consume: true,
-      haste: 2
+      haste: 2,
+      castspeed: 2
    },
    {
       id: 13928,
@@ -943,7 +944,8 @@ var buffs = [
       iconname: "INV_Staff_Medivh",
       minlevel: 60,
       other: true,
-      haste: 2
+      haste: 2,
+      castspeed: 2
    },
  
    

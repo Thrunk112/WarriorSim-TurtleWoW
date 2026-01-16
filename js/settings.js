@@ -556,24 +556,24 @@ SIM.SETTINGS = {
 
         if (typeof spell.timetoend === 'undefined' && !spell.noactiveoption)
             ul.append(`<li data-id="active" class="${spell.active ? 'active' : ''}">Enabled ${note ? ` - ${note}` : ''}</li>`);
-        if (typeof spell.afterswing !== 'undefined') 
-            ul.append(`<li data-id="afterswing" class="${spell.afterswing ? 'active' : ''}">Use only after a swing reset</li>`);
         if (typeof spell.minrage !== 'undefined' && spell.id != 11597) 
             ul.append(`<li data-id="minrageactive" class="${spell.minrageactive ? 'active' : ''}">${spell.name == "Heroic Strike" ? 'Queue' : 'Use'} when above <input type="text" name="minrage" value="${spell.minrage}" data-numberonly="true" /> rage</li>`);
         if (typeof spell.minrage !== 'undefined' && spell.id == 11597) 
             ul.append(`<li data-id="minrageactive" class="${spell.minrageactive ? 'active' : ''}" data-group="usage">Only use when above <input type="text" name="minrage" value="${spell.minrage}" data-numberonly="true" /> rage</li>`);
         if (typeof spell.maxrage !== 'undefined') 
             ul.append(`<li data-id="maxrageactive" class="${spell.maxrageactive ? 'active' : ''}">Don't switch stance when above <input type="text" name="maxrage" value="${spell.maxrage}" data-numberonly="true" /> rage</li>`);
+        if (typeof spell.hasFlurry !== 'undefined') 
+            ul.append(`<li data-id="hasFlurry" class="${spell.hasFlurry ? 'active' : ''}">Only use when Flurry is up</li>`);
         if (typeof spell.maincd !== 'undefined') 
             ul.append(`<li data-id="maincdactive" class="${spell.maincdactive ? 'active' : ''}">Don't ${spell.name == "Heroic Strike" ? 'queue' : 'use'} if BT / MS cooldown shorter than <input type="text" name="maincd" value="${spell.maincd}" data-numberonly="true" /> seconds</li>`);
+         if (typeof spell.wwcd !== 'undefined') 
+            ul.append(`<li data-id="wwcdactive" class="${spell.wwcdactive ? 'active' : ''}">Don't use if Whirlwind cooldown shorter than <input type="text" name="wwcd" value="${spell.wwcd}" data-numberonly="true" /> seconds</li>`);
         if (typeof spell.duration !== 'undefined') 
             ul.append(`<li data-id="durationactive" class="${spell.durationactive ? 'active' : ''}" data-group="usage">Only use every <input type="text" name="duration" value="${spell.duration}" data-numberonly="true" /> seconds</li>`);
         if (typeof spell.unqueue !== 'undefined') 
             ul.append(`<li data-id="unqueueactive" class="${spell.unqueueactive ? 'active' : ''}">Unqueue if below <input type="text" name="unqueue" value="${spell.unqueue}" data-numberonly="true" /> rage before MH swing</li>`);
         if (typeof spell.exmacro !== 'undefined') 
             ul.append(`<li data-id="exmacro" class="${spell.exmacro ? 'active' : ''}" data-group="ex">Always queue when casting Execute</li>`);
-        if (typeof spell.decisive !== 'undefined')
-            ul.append(`<li data-id="decisive" class="${spell.decisive ? 'active' : ''}">Use Decisive Strike Instead</li>`);
         if (spell.timetostart !== undefined)
             ul.append(`<li data-id="timetostartactive" data-group="timeto" class="${spell.timetostartactive ? 'active' : ''}">Use <input type="text" name="timetostart" value="${spell.timetostart}" data-numberonly="true" /> seconds from the start of the fight</li>`);
         if (spell.timetoend !== undefined)
@@ -604,7 +604,11 @@ SIM.SETTINGS = {
             ul.append(`<li data-id="swordboard" class="${spell.swordboard ? 'active' : ''}">Only use after a Sword & Board proc</li>`);
         if (typeof spell.swingtimer !== 'undefined') 
             ul.append(`<li data-id="swingtimeractive" class="${spell.swingtimeractive ? 'active' : ''}">Don't use if swing timer longer than <input type="text" name="swingtimer" value="${spell.swingtimer}" data-numberonly="true" /> secs</li>`);
-
+        if (typeof spell.swingpercent !== 'undefined') 
+            ul.append(`<li data-id="swingpercentactive" class="${spell.swingpercentactive ? 'active' : ''}">Only use when swing timer above <input type="text" name="swingpercent" value="${spell.swingpercent}" data-numberonly="true" />%</li>`);
+        if (typeof spell.swingtimerless !== 'undefined') 
+            ul.append(`<li data-id="swingtimerlessactive" class="${spell.swingtimerlessactive ? 'active' : ''}">Don't use if swing timer LESS than <input type="text" name="swingtimerless" value="${spell.swingtimerless}" data-numberonly="true" /> secs remaining</li>`);
+        
 
         // Might set
         if (typeof spell.secondarystance !== 'undefined')

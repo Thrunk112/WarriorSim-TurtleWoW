@@ -311,6 +311,17 @@ var session = {
            "minrageactive": false,
            "active": false
        },
+    {
+           "id": "11605",
+           "name": "Slam",
+           "maincd": 2,
+           "maincdactive": false,
+           "wwcd": 2,
+           "wwcdactive": false,
+           "minrage": 30,
+           "minrageactive": false,
+           "active": false
+       },
        {
            "id": "1719",
            "name": "Recklessness",
