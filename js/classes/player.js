@@ -793,6 +793,10 @@ class Player {
         }
         if (this.trinketproc1 && this.trinketproc1.usestep) this.trinketproc1.usestep = 0;
         if (this.trinketproc2 && this.trinketproc2.usestep) this.trinketproc2.usestep = 0;
+        this.swordspecstep = 0;
+        this.wailingextrastep = 0;
+        this.hakkariextrastep = 0;
+        this.timewornstep = 0;
         if (this.auras.deepwounds) {
             this.auras.deepwounds.idmg = 0;
         }
