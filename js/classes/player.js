@@ -135,6 +135,9 @@ class Player {
             else if (testType == 6) {
                 this.base.arp += testItem;
             }
+            else if (testType == 9) {
+                this.testExtraAttack = testItem;
+            }
         }
         else {
             this.testItem = testItem;
@@ -192,11 +195,11 @@ class Player {
             this.spells.sunderarmor.nocrit = false;
         }
 
-        
+
         if (this.items.includes(233490)) {
             this.auras.obsidianstrength = new ObsidianStrength(this);
             this.auras.obsidianhaste = new ObsidianHaste(this);
-        } 
+        }
 
         this.update();
         if (this.oh)
@@ -323,6 +326,7 @@ class Player {
                     else if (item.proc && item.proc.chance) {
                         let proc = {}
                         proc.chance = item.proc.chance * 100;
+                        if (item.proc.extra) proc.extra = item.proc.extra;
                         if (item.proc.dmg) proc.magicdmg = item.proc.dmg;
                         if (item.proc.spell) {
                             this.auras[item.proc.spell.toLowerCase()] = eval('new ' + item.proc.spell + '(this)');
@@ -357,10 +361,10 @@ class Player {
                         this.base['moddmgdone'] += 2;
                     if (item.id == 234147)
                         this.base['moddmgdone'] += 4;
-                    
-                    
-                    
-                    
+
+
+
+
                     if (item.id == 228122)
                         this.spells.themoltencore = new TheMoltenCore(this);
 
@@ -408,7 +412,7 @@ class Player {
                     for (let prop in this.base) {
                         if (prop == 'haste' )  { //all haste enchants give castspeed. No need to add the stat to enchants (counter weight is tempench)
                             this.base.haste *= (1 + item.haste / 100) || 1;
-                            this.base.castspeed *= (1 + item.haste / 100) || 1;    
+                            this.base.castspeed *= (1 + item.haste / 100) || 1;
                         } else {
                             if (typeof item[prop] === 'object') {
                                 for (let subprop in item[prop]) {
@@ -789,6 +793,10 @@ class Player {
         }
         if (this.trinketproc1 && this.trinketproc1.usestep) this.trinketproc1.usestep = 0;
         if (this.trinketproc2 && this.trinketproc2.usestep) this.trinketproc2.usestep = 0;
+        this.swordspecstep = 0;
+        this.wailingextrastep = 0;
+        this.hakkariextrastep = 0;
+        this.timewornstep = 0;
         if (this.auras.deepwounds) {
             this.auras.deepwounds.idmg = 0;
         }
@@ -949,7 +957,7 @@ class Player {
             this.stats.haste *= (1 + this.auras.flurry.mult_stats.haste / 100);
             this.stats.castspeed /= (1 - this.auras.flurry.mult_stats.haste / 100); //1.18 flurry bug for slam
             //this.stats.castspeed *= (1 + this.auras.flurry.mult_stats.haste / 100); //correct flurry
-        }    
+        }
         if (this.auras.quicknesspotion && this.auras.quicknesspotion.timer){
             this.stats.haste *= (1 + this.auras.quicknesspotion.mult_stats.haste / 100);
             this.stats.castspeed *= (1 + this.auras.quicknesspotion.mult_stats.haste / 100);
@@ -1086,7 +1094,7 @@ class Player {
         if (this.bleedbonus && this.auras.rend && this.auras.rend.timer && this.auras.deepwounds && this.auras.deepwounds.timer) {
             this.stats.dmgmod *= 1.1;
         }
-            
+
     }
     getGlanceReduction(weapon) {
         let diff, high, low;
@@ -1142,7 +1150,7 @@ class Player {
         return Math.max(crit, 0);
     }
     getEffectiveCrit(weapon) {
-   	    return Math.max(0, (this.crit + weapon.crit) + ((this.stats['skill_' + weapon.type] - this.target.defense) * 0.04) + (this.basestance === 'zerk' ? 3 : 0));         
+        return Math.max(0, (this.crit + weapon.crit) + ((this.stats['skill_' + weapon.type] - this.target.defense) * 0.04) + (this.basestance === 'zerk' ? 3 : 0));
     }
     getDodgeChance(weapon) {
         return Math.max(5 - this.stats.expertise - this.target.dodge + (this.target.defense - this.stats['skill_' + weapon.type]) * 0.1, 0);
@@ -1192,7 +1200,7 @@ class Player {
         if (this.auras.consumedrage && oldRage < 60 && this.rage >= 60)
             this.auras.consumedrage.use();
     }
-      // Using this as the best estimate for Turtle Rage gen -> https://www.desmos.com/calculator/aglbbabrg2
+    // Using this as the best estimate for Turtle Rage gen -> https://www.desmos.com/calculator/aglbbabrg2
     // Update these formulas if a better estimate is found
     addRagemh(dmg, result, weapon, spell) {
         let oldRage = this.rage;
@@ -1691,7 +1699,7 @@ class Player {
     dealdamage(dmg, result, weapon, spell, adjacent) {
         if (result != RESULT.MISS && result != RESULT.DODGE) {
             if(spell == null || spell.school == SCHOOL.PHYSICAL)
-              dmg *= (1 - this.armorReduction);
+                dmg *= (1 - this.armorReduction);
             if (!adjacent) this.addRage(dmg, result, weapon, spell);
             return dmg;
         }
@@ -1826,19 +1834,29 @@ class Player {
                     /* start-log */ if (this.logging) this.log(`Trinket 2 proc`); /* end-log */
                 }
             }
-            if (this.attackproc1 && rng10k() < this.attackproc1.chance) {
+            if (this.attackproc1 && !this.attackproc1.extra && rng10k() < this.attackproc1.chance) {
                 if (this.attackproc1.magicdmg) {
                     procdmg += this.attackproc1.chance == 10000 ? this.attackproc1.magicdmg : this.magicproc(this.attackproc1);
                     /* start-log */ if (this.logging) this.log(`Attack proc for ${procdmg}`); /* end-log */
                 }
                 if (this.attackproc1.spell) this.attackproc1.spell.use();
             }
-            if (this.attackproc2 && rng10k() < this.attackproc2.chance) {
+            if (this.attackproc1 && this.attackproc1.extra && !damageSoFar && rng10k() < this.attackproc1.chance) {
+                if (spell) this.batchedextras += this.attackproc1.extra;
+                else batchedextras = this.attackproc1.extra;
+                /* start-log */ if (this.logging) this.log(`Attack proc extra attack`); /* end-log */
+            }
+            if (this.attackproc2 && !this.attackproc2.extra && rng10k() < this.attackproc2.chance) {
                 if (this.attackproc2.magicdmg) {
                     procdmg += this.attackproc2.chance == 10000 ? this.attackproc2.magicdmg : this.magicproc(this.attackproc2);
                     /* start-log */ if (this.logging) this.log(`Attack proc for ${procdmg}`); /* end-log */
                 }
                 if (this.attackproc2.spell) this.attackproc2.spell.use();
+            }
+            if (this.attackproc2 && this.attackproc2.extra && !damageSoFar && rng10k() < this.attackproc2.chance) {
+                if (spell) this.batchedextras += this.attackproc2.extra;
+                else batchedextras = this.attackproc2.extra;
+                /* start-log */ if (this.logging) this.log(`Attack proc extra attack`); /* end-log */
             }
             // Sword spec shouldnt be able to proc itself
             if (this.talents.swordproc && weapon.type == WEAPONTYPE.SWORD && !damageSoFar && this.swordspecstep != step && rng10k() < this.talents.swordproc * 100) {
@@ -1867,6 +1885,12 @@ class Player {
                 if (spell) this.extraattacks++;
                 else extras++;
                 /* start-log */ if (this.logging) this.log(`Timeworn proc`); /* end-log */
+            }
+
+            if (this.testExtraAttack && !damageSoFar && rng10k() < (this.testExtraAttack * 100)) {
+                if (spell) this.batchedextras += 1;
+                else batchedextras = 1;
+                /* start-log */ if (this.logging) this.log(`Stat weight extra attack proc`); /* end-log */
             }
             // Obsidian Champion
             if (weapon.id == 233490 && rng10k() < weapon.proc1.chance && !(this.timer && this.timer < 1500)) {
@@ -1934,7 +1958,7 @@ class Player {
             this.auras.flurry.proc();
         if (!spell && this.mh.windfury && this.mh.windfury.stacks)
             this.mh.windfury.proc();
-        if (this.extraattacks > 0 && this.auras.unrelentingstrikes && !this.auras.unrelentingstrikes.timer) { 
+        if (this.extraattacks > 0 && this.auras.unrelentingstrikes && !this.auras.unrelentingstrikes.timer) {
             this.auras.unrelentingstrikes.use();
         }
         return procdmg;
