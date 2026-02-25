@@ -253,7 +253,7 @@ SIM.UI = {
                 view.loadWeapons(current_open_page);
             else if (current_open_page == "custom")
                 view.loadCustom();
-            else 
+            else
                 view.loadGear(current_open_page);
         });
 
@@ -435,6 +435,7 @@ SIM.UI = {
             updateStat("arp", await simulateWeight(6, 100));
             updateStat("mhskill", await simulateWeight(7, 1));
             updateStat("ohskill", await simulateWeight(8, 1));
+            updateStat("exattack", await simulateWeight(9, 1));
         }
 
         simulateAll().then(
@@ -716,15 +717,15 @@ SIM.UI = {
                         if (spell.id == runes[type][i].enable)
                             spell.active = false;
                     for (let buff of buffs) {
-                        if (buff.id == runes[type][i].enable) 
+                        if (buff.id == runes[type][i].enable)
                             buff.active = false;
-                        if (buff.id == 2458 && runes[type][i].gladstance) 
+                        if (buff.id == 2458 && runes[type][i].gladstance)
                             buff.active = true;
                     }
-                        
+
                 }
             }
-               
+
         }
         var settings_parent = this.body.find('article.runes');
         var rune_lookup = $(`tr[name="${type}"]`);
@@ -908,7 +909,7 @@ SIM.UI = {
         obj.filter_epic = view.main.find('#filter_epic').hasClass('active');
         obj.bleedreduction = view.fight.find('select[name="bleedreduction"]').val();
         obj.spellqueueing = view.fight.find('select[name="spellqueueing"]').val();
-        
+
 
         let _buffs = [], _rotation = [], _talents = [], _sources = [], _phases = [], _gear = {}, _enchant = {}, _runes = {}, _resistance = {};
         view.buffs.find('.active').each(function () { _buffs.push($(this).attr('data-id')); });
@@ -1003,7 +1004,7 @@ SIM.UI = {
 
         if (storage.targetbasearmor === 3731 || storage.targetbasearmor === null)
             storage.targetbasearmor = 3128;
-        
+
         for (let prop in storage) {
             view.fight.find('input[name="' + prop + '"]').val(storage[prop]);
             view.fight.find('select[name="' + prop + '"]').val(storage[prop]);
@@ -1105,18 +1106,18 @@ SIM.UI = {
 
             if (!item.selected &&
                 ((globalThis.filter_tiger === false && item.name.toLowerCase().indexOf('of the tiger') > -1) ||
-                (globalThis.filter_strength === false && item.name.toLowerCase().indexOf('of strength') > -1) ||
-                (globalThis.filter_bear === false && item.name.toLowerCase().indexOf('of the bear') > -1) ||
-                (globalThis.filter_green === false && item.q == "2") ||
-                (globalThis.filter_blue === false && item.q == "3") ||
-                (globalThis.filter_epic === false && item.q == "4") ||
-                (globalThis.filter_timeworn === false && item.tw))) {
-                    if (globalThis.filter_timeworn === true && item.tw) {
-                        // show item
-                    }
-                    else {
-                        continue;
-                    }
+                    (globalThis.filter_strength === false && item.name.toLowerCase().indexOf('of strength') > -1) ||
+                    (globalThis.filter_bear === false && item.name.toLowerCase().indexOf('of the bear') > -1) ||
+                    (globalThis.filter_green === false && item.q == "2") ||
+                    (globalThis.filter_blue === false && item.q == "3") ||
+                    (globalThis.filter_epic === false && item.q == "4") ||
+                    (globalThis.filter_timeworn === false && item.tw))) {
+                if (globalThis.filter_timeworn === true && item.tw) {
+                    // show item
+                }
+                else {
+                    continue;
+                }
             }
 
             if (filter) {
@@ -1280,25 +1281,25 @@ SIM.UI = {
                     <tbody>`;
 
         for (let item of gear[type]) {
-            
+
             if (!item.selected && (item.r > level || (mode == "sod" && item.q < 3 && item.i < (level - 7)) || (mode == "sod" && item.q == 3 && item.i < (level - 10)) || (mode == "sod" && item.q == 4 && item.i < (level - 15)))) {
                 continue;
             }
 
             if (!item.selected &&
                 ((globalThis.filter_tiger === false && item.name.toLowerCase().indexOf('of the tiger') > -1) ||
-                (globalThis.filter_strength === false && item.name.toLowerCase().indexOf('of strength') > -1) ||
-                (globalThis.filter_bear === false && item.name.toLowerCase().indexOf('of the bear') > -1) ||
-                (globalThis.filter_green === false && item.q == "2") ||
-                (globalThis.filter_blue === false && item.q == "3") ||
-                (globalThis.filter_epic === false && item.q == "4") ||
-                (globalThis.filter_timeworn === false && item.tw))) {
-                    if (globalThis.filter_timeworn === true && item.tw) {
-                        // show item
-                    }
-                    else {
-                        continue;
-                    }
+                    (globalThis.filter_strength === false && item.name.toLowerCase().indexOf('of strength') > -1) ||
+                    (globalThis.filter_bear === false && item.name.toLowerCase().indexOf('of the bear') > -1) ||
+                    (globalThis.filter_green === false && item.q == "2") ||
+                    (globalThis.filter_blue === false && item.q == "3") ||
+                    (globalThis.filter_epic === false && item.q == "4") ||
+                    (globalThis.filter_timeworn === false && item.tw))) {
+                if (globalThis.filter_timeworn === true && item.tw) {
+                    // show item
+                }
+                else {
+                    continue;
+                }
             }
 
             let source = (item.source || "").toLowerCase(), phase = item.phase;
@@ -1311,7 +1312,7 @@ SIM.UI = {
 
             if (max == 2 &&
                 ((phase && !view.filter.find('.phases [data-id="' + phase + '"]').hasClass('active')) ||
-                (source && !view.filter.find('.sources [data-id="' + source + '"]').hasClass('active'))))
+                    (source && !view.filter.find('.sources [data-id="' + source + '"]').hasClass('active'))))
                 item.selected = false;
 
             if (phase && !view.filter.find('.phases [data-id="' + phase + '"]').hasClass('active'))
@@ -1331,7 +1332,7 @@ SIM.UI = {
             if (tooltip == 198981) tooltip = 19898;
             if (tooltip == 2207381) tooltip = 220738;
 
-            
+
             if (item.rand) rand = '?rand=' + item.rand;
 
             let resist = '';
@@ -1594,7 +1595,7 @@ SIM.UI = {
         $('.modal .btn-close').click(function() {
             $('.modal').hide();
         });
-        
+
 
     },
 
@@ -1607,40 +1608,40 @@ var searchSVG = '<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" wi
 function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     if (elmnt.querySelector('.head')) {
-      // if present, the header is where you move the DIV from:
-      elmnt.querySelector('.head').onmousedown = dragMouseDown;
+        // if present, the header is where you move the DIV from:
+        elmnt.querySelector('.head').onmousedown = dragMouseDown;
     } else {
-      // otherwise, move the DIV from anywhere inside the DIV:
-      elmnt.onmousedown = dragMouseDown;
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onmousedown = dragMouseDown;
     }
-  
+
     function dragMouseDown(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // get the mouse cursor position at startup:
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      document.onmouseup = closeDragElement;
-      // call a function whenever the cursor moves:
-      document.onmousemove = elementDrag;
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
     }
-  
+
     function elementDrag(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // calculate the new cursor position:
-      pos1 = pos3 - e.clientX;
-      pos2 = pos4 - e.clientY;
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      // set the element's new position:
-      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
     }
-  
+
     function closeDragElement() {
-      // stop moving when mouse button is released:
-      document.onmouseup = null;
-      document.onmousemove = null;
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
     }
-  }
+}
