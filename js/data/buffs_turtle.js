@@ -152,17 +152,6 @@ var buffs = [
       minlevel: 40,
    },
    {
-      id: 45565,
-      spellid: true,
-      name: "Champion",
-      iconname: "spell_holy_empowerchampion",
-      group: "",
-      other: true,
-      dmgmod: 5,
-      spelldmgmod: 5,
-      minlevel: 60,
-   },
-   {
       id: 5232,
       spellid: true,
       name: "Mark of the Wild",
@@ -271,31 +260,9 @@ var buffs = [
       name: "Trueshot Aura",
       iconname: "ability_trueshot",
       group: "trueshot",
-      ap: 50,
+      ap: 30,
       apsod: 100,
       minlevel: 40,
-      maxlevel: 49
-   },
-   {
-      id: 20905,
-      spellid: true,
-      name: "Trueshot Aura",
-      iconname: "ability_trueshot",
-      group: "trueshot",
-      ap: 75,
-      apsod: 150,
-      minlevel: 50,
-      maxlevel: 59
-   },
-   {
-      id: 20906,
-      spellid: true,
-      name: "Trueshot Aura",
-      iconname: "ability_trueshot",
-      group: "trueshot",
-      ap: 100,
-      apsod: 0,
-      minlevel: 60
    },
    {
       id: 409580,

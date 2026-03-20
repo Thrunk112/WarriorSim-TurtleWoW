@@ -291,10 +291,10 @@ var talents = [
                'Gives you a 6% chance to stun your target for 3 sec with a Mace.'
             ],
             x: 2,
-            y: 4,
+            y: 5,
             c: 0,
             iconname: 'ability_hunter_swiftstrike',
-            aura: function (count) { return { preccut: count * 15 } },
+            aura: function (count) { return { preccut: count * 25 } },
          },
          {
             i: 168,
@@ -355,7 +355,7 @@ var talents = [
                'Increases your maximum rage by 30.'
             ],
             x: 2,
-            y: 5,
+            y: 4,
             c: 0,
             iconname: 'ability_warrior_strengthofarms',
             aura: function (count) { return { boundless: count * 10 } },
@@ -630,7 +630,7 @@ var talents = [
          },
          {
             i: 168,
-            n: 'Improved Whirlwind',
+            n: 'Ravager',
             m: 3,
             s: [
                12862,
@@ -638,9 +638,9 @@ var talents = [
                20497,
             ],
             d: [
-               'Decreases the cooldown of Whirlwind by 1 second.',
-               'Decreases the cooldown of Whirlwind by 1.5 seconds.',
-               'Decreases the cooldown of Whirlwind by 2 second.',
+               'Decreases the cooldown of Whirlwind by 1 second and rage cost of Cleave by 1.',
+               'Decreases the cooldown of Whirlwind by 1.5 seconds and rage cost of Cleave by 2.',
+               'Decreases the cooldown of Whirlwind by 2 seconds and rage cost of Cleave by 3.',
             ],
             x: 0,
             y: 4,

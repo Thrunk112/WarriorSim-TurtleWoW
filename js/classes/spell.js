@@ -197,7 +197,7 @@ class Execute extends Spell {
     }
     dmg() {
         let dmg;
-        dmg = (this.value1 * this.dumpmod) + (this.value2 * this.usedrage);
+        dmg = (this.value1) + (this.value2 * this.usedrage * this.dumpmod);
         return dmg * this.player.stats.dmgmod;
     }
     use(delayedheroic) {
@@ -294,7 +294,7 @@ class HeroicStrike extends Spell {
 class Cleave extends Spell {
     constructor(player, id) {
         super(player, id);
-        this.cost = 20 - player.ragecostbonus;
+        this.cost = 20 - player.ragecostbonus - this.player.talents.impwhirlwind;
         this.bonus = this.value1 * (1 + (this.player.talents.cleavebonus || 0) / 100);
         this.useonly = true;
         this.unqueuetimer = 300 + rng(this.player.reactionmin, this.player.reactionmax);
@@ -380,8 +380,6 @@ class Hamstring extends Spell {
     constructor(player, id) {
         super(player, id);
         this.cost = 10 - player.ragecostbonus;
-        if (this.player.mode == "turtle")
-            this.cooldown = 6;
         if (player.items.includes(19577))
             this.cost -= 2;
         if (player.items.includes(16548) ||
@@ -407,11 +405,10 @@ class Hamstring extends Spell {
 
         this.player.timer = 1500;
         this.player.rage -= this.cost;
-        this.timer = this.cooldown * 1000;
         this.maxdelay = rng(this.player.reactionmin, this.player.reactionmax);
     }
     canUse() {
-        return !this.timer && !this.player.timer && this.cost <= this.player.rage &&
+        return !this.player.timer && this.cost <= this.player.rage &&
         (!this.minrage || this.player.rage >= this.minrage) &&
         (!this.maincd ||
             (this.player.spells.bloodthirst && this.player.spells.bloodthirst.timer >= this.maincd) ||
@@ -756,7 +753,7 @@ class ShieldSlam extends Spell {
         let dmg;
         // SS benefits from the buff it triggers, add it manually if its not up
         let ap = this.player.stats.ap + (this.player.auras.defendersresolve && !this.player.auras.defendersresolve.timer ? 4 * this.player.stats.defense : 0);
-        dmg = rng(this.value1, this.value2) + (this.player.stats.block * 2) + ~~(ap * 0.15);
+        dmg = rng(this.value1, this.value2) + (this.player.stats.block * 2) + ~~(ap * 0.2);
         return dmg * this.player.stats.dmgmod * this.player.mainspelldmg;
     }
     use() {

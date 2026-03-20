@@ -1252,7 +1252,8 @@ var sets = [
       name: 'Armor of the Dreadnaught',
       items: [47261,47262,47263,47264,47265,47266,47267,47268,47269],
       bonus: [
-        { count: 2, stats: { altdreadnaughttwoset: true } }
+        { count: 2, stats: { altdreadnaughttwoset: true } },
+        { count: 4, stats: { altdreadnaughtfourset: true } }
       ]
    },
    {
