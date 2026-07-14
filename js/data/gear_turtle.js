@@ -9427,7 +9427,7 @@ var gear = {
       },
       "type": "Sword",
       "source": "Quest",
-      "phase": 7,
+      "phase": 1,
       "q": 3,
       "i": 64,
       "id": 61717,
@@ -10169,20 +10169,6 @@ var gear = {
       "q": 3,
       "i": 65,
       "id": 19103
-    },
-    {
-      "name": "Groveslicer Glaive",
-      "str": 9,
-      "haste": 1,
-      "mindmg": 76,
-      "maxdmg": 142,
-      "speed": 2.6,
-      "type": "Sword",
-      "source": "Quest",
-      "phase": 1,
-      "q": 3,
-      "i": 64,
-      "id": 61717
     },
     {
       "name": "Hatchet of Sundered Bone",
