@@ -8902,6 +8902,16 @@ var gear = {
   ],
   "ranged": [
     {
+      "name": "Dragonhunter Javelin",
+      "crit": 1,
+      "str": 9,
+      "source": "Onyxia",
+      "phase": 1,
+      "q": 4,
+      "i": 76,
+      "id": 33156
+    },
+    {
       "name": "Time Frozen Bow",
       "hit": 1,
       "haste": 1,
@@ -11699,6 +11709,21 @@ var gear = {
       "q": 4,
       "i": 70,
       "id": 55041
+    },
+    {
+      "name": "Broodwaden's Bulwarkblade",
+      "agi": 10,
+      "sta": 10,
+      "mindmg": 68,
+      "maxdmg": 127,
+      "speed": 1.7,
+      "skill": 5,
+      "type": "Sword",
+      "source": "Onyxia",
+      "phase": 1,
+      "q": 4,
+      "i": 76,
+      "id": 33157
     }
   ],
   "offhand": [
@@ -13633,6 +13658,21 @@ var gear = {
         "extra": 2
       }
     },
+    {
+      "name": "Broodwaden's Bulwarkblade",
+      "agi": 10,
+      "sta": 10,
+      "mindmg": 68,
+      "maxdmg": 127,
+      "speed": 1.7,
+      "skill": 5,
+      "type": "Sword",
+      "source": "Onyxia",
+      "phase": 1,
+      "q": 4,
+      "i": 76,
+      "id": 33157
+    }
   ],
   "twohand": [
     {
@@ -13651,6 +13691,21 @@ var gear = {
         "magic": true,
         "dmg": 286
       }
+    },
+    {
+      "name": "Yoxtez, Black Breath of the Dragonflight",
+      "haste": 1,
+      "agi": 36,
+      "sta": 33,
+      "mindmg": 228,
+      "maxdmg": 342,
+      "speed": 3.8,
+      "q": 4,
+      "i": 76,
+      "id": 33150,
+      "source": "Onyxia",
+      "phase": 1,
+      "type": "Polearm",
     },
     {
       "name": "Checkmate",
