@@ -1,6 +1,52 @@
 var gear = {
   "head": [
     {
+      "name": "Combatant's Plate Helm",
+      "str": 16,
+      "agi": 16,
+      "sta": 28,
+      "hit": 1,
+      "ac": 598,
+      "phase": 1,
+      "source": "PVP",
+      "q": 3,
+      "i": 71,
+      "id": 33680
+    },
+    {
+      "name": "Partisan's Plate Helm",
+      "str": 22,
+      "agi": 21,
+      "sta": 34,
+      "hit": 1,
+      "resist": {
+        "fire": 10
+      },
+      "ac": 696,
+      "phase": 1,
+      "source": "PVP",
+      "q": 4,
+      "i": 76,
+      "id": 33686
+    },
+    {
+      "name": "Veteran's Plate Helm",
+      "str": 24,
+      "agi": 24,
+      "sta": 42,
+      "hit": 1,
+      "crit": 1,
+      "resist": {
+        "fire": 15
+      },
+      "ac": 834,
+      "phase": 3,
+      "source": "PVP",
+      "q": 4,
+      "i": 92,
+      "id": 33692
+    },
+    {
       "name": "Crown of Might",
       "str": 30,
       "agi": 14,
@@ -950,7 +996,7 @@ var gear = {
     {
       "name": "Medallion of the Dawn",
       "crit": 1,
-      "ap": 24,
+      "ap": 30,
       "sta": 12,
       "source": "Other",
       "phase": 6,
@@ -1244,9 +1290,64 @@ var gear = {
       "q": 4,
       "i": 88,
       "id": 55507
+    },
+    {
+      "name": "Favor of Cruk'Zogg",
+      "source": "Quest",
+      "str": 8,
+      "sta": 6,
+	    "hit": 1,
+      "phase": 1,
+      "q": 3,
+      "i": 59,
+      "id": 60348
     }
   ],
   "shoulder": [
+      {
+      "name": "Combatant's Plate Shoulderguards",
+      "str": 13,
+      "agi": 14,
+      "sta": 22,
+      "ac": 552,
+      "phase": 1,
+      "source": "PVP",
+      "q": 3,
+      "i": 71,
+      "id": 33681
+    },
+    {
+      "name": "Partisan's Plate Shoulderguards",
+      "str": 15,
+      "agi": 16,
+      "sta": 26,
+      "crit": 1,
+      "resist": {
+        "fire": 5
+      },
+      "ac": 642,
+      "phase": 1,
+      "source": "PVP",
+      "q": 4,
+      "i": 76,
+      "id": 33687
+    },
+    {
+      "name": "Veteran's Plate Shoulderguards",
+      "str": 20,
+      "agi": 21,
+      "sta": 33,
+      "crit": 1,
+      "resist": {
+        "fire": 10
+      },
+      "ac": 642,
+      "phase": 3,
+      "source": "PVP",
+      "q": 4,
+      "i": 92,
+      "id": 33693
+    },
     {
       "name": "Pauldrons of Might",
       "sta": 16,
@@ -1384,6 +1485,19 @@ var gear = {
       "phase": 7,
       "id": 60292,
       "i": 63,
+      "q": 3
+    },
+    {
+      "name": "Mantle of Dag'grak",
+      "str": 12,
+      "agi": 12,
+      "sta": 6,
+      "haste": 1,
+      "source": "Quest",
+      "ac": 477,
+      "phase": 1,
+      "id": 60405,
+      "i": 61,
       "q": 3
     },
     {
@@ -2431,6 +2545,53 @@ var gear = {
     },
   ],
   "chest": [
+        {
+      "name": "Combatant's Plate Armor",
+      "str": 15,
+      "agi": 14,
+      "sta": 26,
+      "crit": 1,
+      "ac": 736,
+      "phase": 1,
+      "source": "PVP",
+      "q": 3,
+      "i": 71,
+      "id": 33682
+    },
+    {
+      "name": "Partisan's Plate Armor",
+      "str": 20,
+      "agi": 19,
+      "sta": 35,
+      "hit": 1,
+      "crit": 1,
+      "resist": {
+        "frost": 10
+      },
+      "ac": 857,
+      "phase": 1,
+      "source": "PVP",
+      "q": 4,
+      "i": 76,
+      "id": 33688
+    },
+    {
+      "name": "Veteran's Plate Armor",
+      "str": 29,
+      "agi": 25,
+      "sta": 44,
+      "hit": 1,
+      "crit": 1,
+      "resist": {
+        "frost": 15
+      },
+      "ac": 1027,
+      "phase": 3,
+      "source": "PVP",
+      "q": 4,
+      "i": 92,
+      "id": 33694
+    },
     {
       "name": "Chestplate of Might",
       "str": 32,
@@ -3850,6 +4011,52 @@ var gear = {
   ],
   "hands": [
     {
+      "name": "Combatant's Plate Gauntlets",
+      "str": 14,
+      "agi": 12,
+      "sta": 23,
+      "ac": 460,
+      "phase": 1,
+      "source": "PVP",
+      "q": 3,
+      "i": 71,
+      "id": 33683
+    },
+    {
+      "name": "Partisan's Plate Gauntlets",
+      "str": 14,
+      "agi": 13,
+      "sta": 26,
+      "haste": 1,
+      "crit": 1,
+      "resist": {
+        "frost": 5
+      },
+      "ac": 535,
+      "phase": 1,
+      "source": "PVP",
+      "q": 4,
+      "i": 76,
+      "id": 33689
+    },
+    {
+      "name": "Veteran's Plate Gauntlets",
+      "str": 20,
+      "agi": 17,
+      "sta": 32,
+      "haste": 1,
+      "crit": 1,
+      "resist": {
+        "frost": 10
+      },
+      "ac": 643,
+      "phase": 3,
+      "source": "PVP",
+      "q": 4,
+      "i": 92,
+      "id": 33695
+    },
+    {
       "name": "Gloves of Might",
       "str": 18,
       "sta": 13,
@@ -3972,6 +4179,21 @@ var gear = {
       "phase": 4,
       "id": 19869,
       "i": 71,
+      "q": 3,
+    },
+    {
+      "name": "Molten Tempered Gloves",
+      "ac": 447,
+      "sta": 13,
+      "str": 20,
+      "crit": 1,
+      "resist": {
+        "fire": 10
+      },
+      "source": "Other",
+      "phase": 1,
+      "id": 58223,
+      "i": 63,
       "q": 3,
     },
     {
@@ -5358,6 +5580,52 @@ var gear = {
   ],
   "legs": [
     {
+      "name": "Combatant's Plate Legguards",
+      "str": 18,
+      "agi": 18,
+      "sta": 27,
+      "hit": 1,
+      "ac": 644,
+      "phase": 1,
+      "source": "PVP",
+      "q": 3,
+      "i": 71,
+      "id": 33684
+    },
+    {
+      "name": "Partisan's Plate Legguards",
+      "str": 24,
+      "agi": 19,
+      "sta": 34,
+      "hit": 1,
+      "resist": {
+        "nature": 10
+      },
+      "ac": 749,
+      "phase": 1,
+      "source": "PVP",
+      "q": 4,
+      "i": 76,
+      "id": 33690
+    },
+    {
+      "name": "Veteran's Plate Legguards",
+      "str": 28,
+      "agi": 23,
+      "sta": 41,
+      "hit": 1,
+      "crit": 1,
+      "resist": {
+        "nature": 15
+      },
+      "ac": 898,
+      "phase": 3,
+      "source": "PVP",
+      "q": 4,
+      "i": 92,
+      "id": 33696
+    },
+    {
       "name": "Leggings of Might",
       "sta": 22,
       "crit": 1,
@@ -6215,6 +6483,49 @@ var gear = {
   ],
   "feet": [
     {
+      "name": "Combatant's Plate Boots",
+      "str": 15,
+      "agi": 13,
+      "sta": 21,
+      "ac": 511,
+      "phase": 1,
+      "source": "PVP",
+      "q": 3,
+      "i": 71,
+      "id": 33685
+    },
+    {
+      "name": "Partisan's Plate Boots",
+      "str": 17,
+      "agi": 16,
+      "sta": 27,
+      "resist": {
+        "nature": 5
+      },
+      "ac": 598,
+      "phase": 1,
+      "source": "PVP",
+      "q": 4,
+      "i": 76,
+      "id": 33691
+    },
+    {
+      "name": "Veteran's Plate Boots",
+      "str": 18,
+      "agi": 18,
+      "sta": 31,
+      "crit": 1,
+      "resist": {
+        "nature": 10
+      },
+      "ac": 709,
+      "phase": 3,
+      "source": "PVP",
+      "q": 4,
+      "i": 92,
+      "id": 33697
+    },
+    {
       "name": "Sabatons of Might",
       "str": 20,
       "sta": 14,
@@ -6911,6 +7222,19 @@ var gear = {
       "q": 4,
       "i": 66,
       "id": 58215
+    },
+    {
+      "name": "Taut Dragonhide Boots",
+      "sta": 15,
+      "agi": 14,
+      "ac": 154,
+      "skill": 6,
+      "type": "Sword",
+      "source": "BWL",
+      "phase": 2,
+      "q": 4,
+      "i": 76,
+      "id": 33074
     }
   ],
   "finger1": [
@@ -9837,6 +10161,20 @@ var gear = {
       "id": 19103
     },
     {
+      "name": "Groveslicer Glaive",
+      "str": 9,
+      "haste": 1,
+      "mindmg": 76,
+      "maxdmg": 142,
+      "speed": 2.6,
+      "type": "Sword",
+      "source": "Quest",
+      "phase": 1,
+      "q": 3,
+      "i": 64,
+      "id": 61717
+    },
+    {
       "name": "Hatchet of Sundered Bone",
       "crit": 1,
       "ap": 36,
@@ -9864,7 +10202,7 @@ var gear = {
       "id": 13952
     },
     {
-      "name": "R14 Axe",
+      "name": "Veteran's Axe",
       "crit": 1,
       "sta": 12,
       "ap": 28,
@@ -9876,7 +10214,22 @@ var gear = {
       "phase": 2,
       "q": 4,
       "i": 83,
-      "id": 18827
+      "id": 18828
+    },
+    {
+      "name": "Partisan's Axe",
+      "crit": 1,
+      "sta": 8,
+      "ap": 24,
+      "mindmg": 122,
+      "maxdmg": 189,
+      "speed": 2.9,
+      "type": "Axe",
+      "source": "PVP",
+      "phase": 2,
+      "q": 4,
+      "i": 72,
+      "id": 33909
     },
     {
       "name": "Serathil",
@@ -10201,7 +10554,7 @@ var gear = {
       "id": 12783
     },
     {
-      "name": "R14 Dagger",
+      "name": "Veteran's Dagger",
       "crit": 1,
       "sta": 12,
       "ap": 28,
@@ -10213,7 +10566,22 @@ var gear = {
       "phase": 2,
       "q": 4,
       "i": 83,
-      "id": 18838
+      "id": 18840
+    },
+    {
+      "name": "Partisan's Dagger",
+      "crit": 1,
+      "sta": 8,
+      "ap": 24,
+      "mindmg": 83,
+      "maxdmg": 131,
+      "speed": 2,
+      "type": "Dagger",
+      "source": "PVP",
+      "phase": 2,
+      "q": 4,
+      "i": 72,
+      "id": 33914
     },
     {
       "name": "Kingsfall",
@@ -10385,7 +10753,7 @@ var gear = {
       }
     },
     {
-      "name": "R14 Claw (MH)",
+      "name": "Veteran's Claw (MH)",
       "Mainhand": true,
       "crit": 1,
       "sta": 12,
@@ -10399,6 +10767,22 @@ var gear = {
       "q": 4,
       "i": 83,
       "id": 18844
+    },
+    {
+      "name": "Partisan's Claw (MH)",
+      "Mainhand": true,
+      "crit": 1,
+      "sta": 8,
+      "ap": 24,
+      "mindmg": 122,
+      "maxdmg": 189,
+      "speed": 2.9,
+      "type": "Fist",
+      "source": "PVP",
+      "phase": 2,
+      "q": 4,
+      "i": 72,
+      "id": 33911
     },
     {
       "name": "Lefty's Brass Knuckle",
@@ -10544,7 +10928,7 @@ var gear = {
       "id": 20580
     },
     {
-      "name": "R14 Hammer",
+      "name": "Veteran's Hammer",
       "crit": 1,
       "sta": 12,
       "ap": 28,
@@ -10556,7 +10940,22 @@ var gear = {
       "phase": 2,
       "q": 4,
       "i": 83,
-      "id": 18865
+      "id": 18866
+    },
+    {
+      "name": "Partisan's Hammer",
+      "crit": 1,
+      "sta": 8,
+      "ap": 24,
+      "mindmg": 122,
+      "maxdmg": 189,
+      "speed": 2.9,
+      "type": "Mace",
+      "source": "PVP",
+      "phase": 2,
+      "q": 4,
+      "i": 72,
+      "id": 33908
     },
     {
       "name": "Mass of McGowan",
@@ -10908,7 +11307,7 @@ var gear = {
       "id": 20577
     },
     {
-      "name": "R14 Longsword",
+      "name": "Veteran's Longsword",
       "crit": 1,
       "sta": 12,
       "ap": 28,
@@ -10920,11 +11319,26 @@ var gear = {
       "phase": 2,
       "q": 4,
       "i": 83,
-      "id": 12584
+      "id": 16345
     },
     {
-      "name": "R14 Swift Blade",
+      "name": "Partisan's Longsword",
       "crit": 1,
+      "sta": 8,
+      "ap": 24,
+      "mindmg": 122,
+      "maxdmg": 189,
+      "speed": 2.9,
+      "type": "Sword",
+      "source": "PVP",
+      "phase": 2,
+      "q": 4,
+      "i": 72,
+      "id": 33907
+    },
+    {
+      "name": "Veteran's Swift Blade",
+      "haste": 1,
       "sta": 12,
       "ap": 28,
       "mindmg": 96,
@@ -10935,7 +11349,22 @@ var gear = {
       "phase": 2,
       "q": 4,
       "i": 83,
-      "id": 23456
+      "id": 23467
+    },
+    {
+      "name": "Partisan's Swift Blade",
+      "haste": 1,
+      "sta": 8,
+      "ap": 24,
+      "mindmg": 74,
+      "maxdmg": 119,
+      "speed": 1.8,
+      "type": "Sword",
+      "source": "PVP",
+      "phase": 2,
+      "q": 4,
+      "i": 72,
+      "id": 33913
     },
     {
       "name": "Ravencrest's Legacy",
@@ -11897,7 +12326,7 @@ var gear = {
       "id": 22816
     },
     {
-      "name": "R14 Axe",
+      "name": "Veteran's Axe",
       "crit": 1,
       "sta": 12,
       "ap": 28,
@@ -11909,7 +12338,22 @@ var gear = {
       "phase": 2,
       "q": 4,
       "i": 83,
-      "id": 18827
+      "id": 18828
+    },
+    {
+      "name": "Partisan's Axe",
+      "crit": 1,
+      "sta": 8,
+      "ap": 24,
+      "mindmg": 122,
+      "maxdmg": 189,
+      "speed": 2.9,
+      "type": "Axe",
+      "source": "PVP",
+      "phase": 2,
+      "q": 4,
+      "i": 72,
+      "id": 33909
     },
     {
       "name": "Serathil",
@@ -12238,7 +12682,7 @@ var gear = {
       "id": 12783
     },
     {
-      "name": "R14 Dagger",
+      "name": "Veteran's Dagger",
       "crit": 1,
       "sta": 12,
       "ap": 28,
@@ -12250,7 +12694,22 @@ var gear = {
       "phase": 2,
       "q": 4,
       "i": 83,
-      "id": 18838
+      "id": 18840
+    },
+    {
+      "name": "Partisan's Dagger",
+      "crit": 1,
+      "sta": 8,
+      "ap": 24,
+      "mindmg": 83,
+      "maxdmg": 131,
+      "speed": 2,
+      "type": "Dagger",
+      "source": "PVP",
+      "phase": 2,
+      "q": 4,
+      "i": 72,
+      "id": 33914
     },
     {
       "name": "Kingsfall",
@@ -12454,8 +12913,8 @@ var gear = {
       "id": 18202
     },
     {
-      "name": "R14 Claw (OH)",
-      "offhand": true,
+      "name": "Veteran's Claw (OH)",
+      "Offhand": true,
       "crit": 1,
       "sta": 12,
       "ap": 28,
@@ -12468,6 +12927,22 @@ var gear = {
       "q": 4,
       "i": 83,
       "id": 18848
+    },
+    {
+      "name": "Partisan's Claw (OH)",
+      "Offhand": true,
+      "crit": 1,
+      "sta": 8,
+      "ap": 24,
+      "mindmg": 122,
+      "maxdmg": 189,
+      "speed": 2.9,
+      "type": "Fist",
+      "source": "PVP",
+      "phase": 2,
+      "q": 4,
+      "i": 72,
+      "id": 33910
     },
     {
       "name": "Lefty's Brass Knuckle",
@@ -12534,7 +13009,7 @@ var gear = {
       }
     },
     {
-      "name": "R14 Hammer",
+      "name": "Veteran's Hammer",
       "crit": 1,
       "sta": 12,
       "ap": 28,
@@ -12546,7 +13021,22 @@ var gear = {
       "phase": 2,
       "q": 4,
       "i": 83,
-      "id": 18865
+      "id": 18866
+    },
+    {
+      "name": "Partisan's Hammer",
+      "crit": 1,
+      "sta": 8,
+      "ap": 24,
+      "mindmg": 122,
+      "maxdmg": 189,
+      "speed": 2.9,
+      "type": "Mace",
+      "source": "PVP",
+      "phase": 2,
+      "q": 4,
+      "i": 72,
+      "id": 33908
     },
     {
       "name": "Misplaced Servo Arm",
@@ -12817,7 +13307,7 @@ var gear = {
       "id": 20577
     },
     {
-      "name": "R14 Longsword",
+      "name": "Veteran's Longsword",
       "crit": 1,
       "sta": 12,
       "ap": 28,
@@ -12829,10 +13319,25 @@ var gear = {
       "phase": 2,
       "q": 4,
       "i": 83,
-      "id": 12584
+      "id": 16345
     },
     {
-      "name": "R14 Swift Blade",
+      "name": "Partisan's Longsword",
+      "crit": 1,
+      "sta": 8,
+      "ap": 24,
+      "mindmg": 122,
+      "maxdmg": 189,
+      "speed": 2.9,
+      "type": "Sword",
+      "source": "PVP",
+      "phase": 2,
+      "q": 4,
+      "i": 72,
+      "id": 33907
+    },
+    {
+      "name": "Veteran's Swift Blade",
       "crit": 1,
       "sta": 12,
       "ap": 28,
@@ -12844,7 +13349,22 @@ var gear = {
       "phase": 2,
       "q": 4,
       "i": 83,
-      "id": 23456
+      "id": 23467
+    },
+    {
+      "name": "Partisan's Swift Blade",
+      "haste": 1,
+      "sta": 8,
+      "ap": 24,
+      "mindmg": 74,
+      "maxdmg": 119,
+      "speed": 1.8,
+      "type": "Sword",
+      "source": "PVP",
+      "phase": 2,
+      "q": 4,
+      "i": 72,
+      "id": 33913
     },
     {
       "name": "Ravencrest's Legacy",
@@ -13721,7 +14241,7 @@ var gear = {
       "type": "Axe"
     },
     {
-      "name": "R14 Battle Axe",
+      "name": "Veteran's Battle Axe",
       "crit": 1,
       "str": 28,
       "sta": 43,
@@ -13731,6 +14251,21 @@ var gear = {
       "q": 4,
       "i": 83,
       "id": 18831,
+      "source": "PVP",
+      "phase": 2,
+      "type": "Axe"
+    },
+    {
+      "name": "Partisan's Battle Axe",
+      "crit": 1,
+      "str": 24,
+      "sta": 36,
+      "mindmg": 186,
+      "maxdmg": 346,
+      "speed": 3.8,
+      "q": 4,
+      "i": 72,
+      "id": 33903,
       "source": "PVP",
       "phase": 2,
       "type": "Axe"
@@ -13951,7 +14486,7 @@ var gear = {
       "type": "Mace"
     },
     {
-      "name": "R14 Pulverizer",
+      "name": "Veteran's Pulverizer",
       "crit": 1,
       "str": 28,
       "sta": 43,
@@ -13960,7 +14495,22 @@ var gear = {
       "speed": 3.8,
       "q": 4,
       "i": 83,
-      "id": 18868,
+      "id": 18867,
+      "source": "PVP",
+      "phase": 2,
+      "type": "Mace"
+    },
+    {
+      "name": "Partisan's Pulverizer",
+      "crit": 1,
+      "str": 24,
+      "sta": 36,
+      "mindmg": 186,
+      "maxdmg": 346,
+      "speed": 3.8,
+      "q": 4,
+      "i": 72,
+      "id": 33880,
       "source": "PVP",
       "phase": 2,
       "type": "Mace"
@@ -14150,7 +14700,7 @@ var gear = {
       "type": "Polearm"
     },
     {
-      "name": "R14 Polearm",
+      "name": "Veteran's Polearm",
       "crit": 1,
       "str": 28,
       "sta": 43,
@@ -14160,6 +14710,21 @@ var gear = {
       "q": 4,
       "i": 83,
       "id": 18871,
+      "source": "PVP",
+      "phase": 2,
+      "type": "Polearm"
+    },
+    {
+      "name": "Partisan's Polearm",
+      "crit": 1,
+      "str": 24,
+      "sta": 36,
+      "mindmg": 186,
+      "maxdmg": 346,
+      "speed": 3.8,
+      "q": 4,
+      "i": 72,
+      "id": 33905,
       "source": "PVP",
       "phase": 2,
       "type": "Polearm"
@@ -14420,7 +14985,7 @@ var gear = {
       }
     },
     {
-      "name": "R14 Greatsword",
+      "name": "Veteran's Greatsword",
       "crit": 1,
       "str": 28,
       "sta": 43,
@@ -14430,6 +14995,21 @@ var gear = {
       "q": 4,
       "i": 83,
       "id": 18877,
+      "source": "PVP",
+      "phase": 2,
+      "type": "Sword"
+    },
+    {
+      "name": "Partisan's Greatsword",
+      "crit": 1,
+      "str": 24,
+      "sta": 36,
+      "mindmg": 186,
+      "maxdmg": 346,
+      "speed": 3.8,
+      "q": 4,
+      "i": 72,
+      "id": 33900,
       "source": "PVP",
       "phase": 2,
       "type": "Sword"

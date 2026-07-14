@@ -1,5 +1,5 @@
 const MAX_WORKERS = ~~Math.min(8, (navigator.hardwareConcurrency || 8) / 2);
-const WEB_DB_URL = "https://database.turtlecraft.gg/?";
+const WEB_DB_URL = "https://octowow.st/db/?";
 
 var SIM = SIM || {}
 
