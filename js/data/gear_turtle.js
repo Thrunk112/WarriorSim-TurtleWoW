@@ -5626,6 +5626,19 @@ var gear = {
       "id": 33696
     },
     {
+      "name": "Leggings of the Redeemer",
+      "str": 18,
+      "agi": 14,
+      "sta": 16,
+      "hit": 1,
+      "ac": 575,
+      "phase": 1,
+      "source": "Other",
+      "q": 3,
+      "i": 63,
+      "id": 58228
+    },
+    {
       "name": "Leggings of Might",
       "sta": 22,
       "crit": 1,
@@ -6482,6 +6495,18 @@ var gear = {
     }
   ],
   "feet": [
+    {
+      "name": "Plaguewalker Boots",
+      "str": 13,
+      "agi": 13,
+      "haste": 1,
+      "ac": 121,
+      "phase": 1,
+      "source": "Other",
+      "q": 3,
+      "i": 63,
+      "id": 58230
+    },
     {
       "name": "Combatant's Plate Boots",
       "str": 15,
