@@ -5580,6 +5580,19 @@ var gear = {
   ],
   "legs": [
     {
+      "name": "Trousers of the Unruly Youth",
+      "agi": 8,
+      "sta": 12,
+      "skill": 7,
+      "type": "2H Mace",
+      "ac": 264,
+      "phase": 1,
+      "source": "Quest",
+      "q": 2,
+      "i": 58,
+      "id": 33353
+    },
+    {
       "name": "Combatant's Plate Legguards",
       "str": 18,
       "agi": 18,
@@ -13866,7 +13879,7 @@ var gear = {
       "type": "Sword"
     },
     {
-      "name": "Towerforge Demolisher *Unknown ppm",
+      "name": "Towerforge Demolisher *Unknown ppm", //missing proc
       "mindmg": 173,
       "maxdmg": 291,
       "speed": 3.7,
