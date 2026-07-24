@@ -425,7 +425,7 @@ class Pummel extends Spell {
     }
     dmg() {
         let dmg;
-        dmg = this.player.stats.ap * 0.05;
+        dmg = 20 + this.player.stats.ap * 0.05;
         return dmg * this.player.stats.dmgmod;
     }
     use() {

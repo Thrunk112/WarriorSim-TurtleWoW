@@ -874,6 +874,21 @@ var gear = {
       "id": 11735
     },
     {
+      "name": "Blackwind Facemask",
+      "agi": 8,
+      "skill": 5,
+      "type": "2H Axe",
+      "resist": {
+        "shadow": 7
+      },
+      "ac": 175,
+      "source": "Dungeon",
+      "phase": 1,
+      "q": 3,
+      "i": 30,
+      "id": 33043
+    },
+    {
       "name": "Gurubashi Helm",
       "str": 22,
       "agi": 21,
@@ -2031,6 +2046,17 @@ var gear = {
       "q": 4,
       "i": 65,
       "id": 60488
+    },
+    {
+      "name": "Tattered Hakkari Cape",
+      "crit": 1,
+      "str": 6,
+      "ac": 42,
+      "source": "Quest",
+      "phase": 1,
+      "q": 3,
+      "i": 59,
+      "id": 20219
     },
     {
       "name": "Shroud of Haunted Torment",
