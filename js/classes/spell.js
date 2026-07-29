@@ -1783,6 +1783,14 @@ class ForgottenOrder extends Aura {
     }
 }
 
+class ElementiumChampion extends Aura {
+    constructor(player) {
+        super(player);
+        this.duration = 30;
+        this.stats = { str: 150 };
+        this.name = 'Elementium Champion';
+    }
+}
 class Pummeler extends Aura {
     constructor(player, id) {
         super(player, id);

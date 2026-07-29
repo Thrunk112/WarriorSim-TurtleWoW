@@ -13743,6 +13743,40 @@ var gear = {
       }
     },
     {
+      "name": "Elementium Champion",
+      "mindmg": 190,
+      "maxdmg": 359,
+      "speed": 3.5,
+      "source": "Other",
+      "type": "Sword",
+      "proc": {
+        "ppm": 1,
+        "magic": true,
+        "dmg": 212,
+        "spell": "ElementiumChampion"
+      },
+      "q": 4,
+      "i": 78,
+      "phase": 3,
+      "id": 33093,
+    },
+    {
+      "name": "Elementium Reaper",
+      "mindmg": 208,
+      "maxdmg": 387,
+      "speed": 3.8,
+      "type": "Axe",
+      "source": "Other",
+      "proc": {
+        "ppm": 1,
+        "dmg": 650,
+      },
+      "phase": 3,
+      "q": 4,
+      "i": 78,
+      "id": 33094,
+    },
+    {
       "name": "Yoxtez, Black Breath of the Dragonflight",
       "haste": 1,
       "agi": 36,
