@@ -1319,7 +1319,7 @@ var gear = {
     }
   ],
   "shoulder": [
-      {
+    {
       "name": "Combatant's Plate Shoulderguards",
       "str": 13,
       "agi": 14,
@@ -1330,6 +1330,19 @@ var gear = {
       "q": 3,
       "i": 71,
       "id": 33681
+    },
+    {
+      "name": "Stormshroud Shoulders",
+      "sta": 12,
+      "ap": 15,
+      "hit": 1,
+      "crit": 1,
+      "ac": 126,
+      "source": "Crafting",
+      "phase": 1,
+      "q": 3,
+      "i": 59,
+      "id": 15058
     },
     {
       "name": "Partisan's Plate Shoulderguards",
@@ -2452,19 +2465,6 @@ var gear = {
       "q": 4,
       "i": 72,
       "id": 21456
-    },
-    {
-      "name": "Stormshroud Shoulders",
-      "sta": 12,
-      "ap": 15,
-      "hit": 1,
-      "crit": 1,
-      "ac": 126,
-      "source": "Crafting",
-      "phase": 1,
-      "q": 3,
-      "i": 59,
-      "id": 15058
     },
     {
       "name": "Shroud of Dominion",
