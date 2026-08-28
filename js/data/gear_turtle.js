@@ -2454,6 +2454,19 @@ var gear = {
       "id": 21456
     },
     {
+      "name": "Stormshroud Shoulders",
+      "sta": 12,
+      "ap": 15,
+      "hit": 1,
+      "crit": 1,
+      "ac": 126,
+      "source": "Crafting",
+      "phase": 1,
+      "q": 3,
+      "i": 59,
+      "id": 15058
+    },
+    {
       "name": "Shroud of Dominion",
       "crit": 1,
       "sta": 11,
