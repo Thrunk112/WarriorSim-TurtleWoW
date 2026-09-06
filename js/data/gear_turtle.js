@@ -2061,6 +2061,18 @@ var gear = {
       "id": 60488
     },
     {
+      "name": "Cloak of the Veteran",
+      "agi": 12,
+      "type": "1H Sword",
+      "skill": 6,
+      "ac": 43,
+      "source": "Other",
+      "phase": 1,
+      "q": 3,
+      "i": 61,
+      "id": 33209
+    },
+    {
       "name": "Tattered Hakkari Cape",
       "crit": 1,
       "str": 6,
